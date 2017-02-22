@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TEAM4OARS.Models.View_Pending_Complaints>
+
+@{
+    ViewBag.Title = "List Pending Apartment Complaints";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Complaint_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description_Complaint)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Complaint_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description_Complaint)
+        </td>
+    </tr>
+}
+
+</table>

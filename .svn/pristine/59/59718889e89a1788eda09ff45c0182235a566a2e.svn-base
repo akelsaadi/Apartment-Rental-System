@@ -1,0 +1,45 @@
+﻿@model TEAM4OARS.Models.Tenant
+
+@{
+    ViewBag.Title = "LoginTenant";
+}
+
+<h2>LoginTenant</h2>
+
+
+@using (Html.BeginForm("LoginTenant", "Home", FormMethod.Post))
+{
+    //this is to create form tag
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    if (ViewBag.Message != null)
+    {
+        <div style="border:1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+
+    <table>
+        <tr>
+            <td>@Html.LabelFor(a => a.Tenant_Username)</td>
+            <td>@Html.TextAreaFor(a => a.Tenant_Username)</td>
+            <td>@Html.ValidationMessageFor(a => a.Tenant_Username)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(a => a.Tenant_Password)</td>
+            <td>@Html.PasswordFor(a => a.Tenant_Password)</td>
+            <td>@Html.ValidationMessageFor(a => a.Tenant_Password)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Login" />
+            </td>
+        </tr>
+    </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

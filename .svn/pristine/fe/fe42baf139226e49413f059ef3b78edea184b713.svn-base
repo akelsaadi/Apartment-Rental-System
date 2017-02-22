@@ -1,0 +1,6 @@
+﻿@{
+    ViewData["Title"] = "Testimonials";
+}
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+<input id="searchT" type="text" /><input id="searchBtn" type="button" value="Search" />

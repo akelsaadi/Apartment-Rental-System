@@ -1,0 +1,30 @@
+UCCreateRental {
+  Inputs: LeaseType, 
+          Tenant (SSN, Name, Phone, Birthdate)
+          
+  [Do some preliminary validation checks here]
+  
+  [Somehow get the rental number for this rental. The database could do this
+   using a SEQUENCE, or we could keep track of it locally.]
+  
+  Send SQL:  INSERT INTO Rental
+             VALUES (<blah>);
+                    
+             INSERT INTO Owns
+             VALUES (<blah>);
+}
+
+UCListAutoMake {
+  [We send an SQL query and show the results in a table.
+  
+  Send SQL: 
+        SELECT Auto_Make, COUNT(*) FROM Tenant_Auto
+          GROUP BY Auto_Make;
+}
+
+UCListStaffAptDetails {
+  [I'm not exactly clear what this means exactly. Where does the list of apt
+  nos come from? Apartments owned by the staff? Rented out by the staff?
+  Something else? Until I understand this I can't really write anything here...
+}
+

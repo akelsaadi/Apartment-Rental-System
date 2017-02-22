@@ -1,0 +1,415 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TEAM4OARS.Common;
+
+namespace TEAM4OARS.Controllers
+{
+    public class HomeController : Controller
+    {
+        /* setFeedbackMsg: Ben Wightman
+        Used for feedback messages (e.g. success/failure) on input forms.
+        To display on a view, use HTML like the following: 
+
+        @if (TempData["msg"] != null) {
+            <div class="@TempData["msgClass"]">@TempData["msg"]</div>
+        }
+        */
+        private void setFeedbackMsg(string msg, string htmlClass) {
+            TempData["msg"] = msg;
+            TempData["msgClass"] = htmlClass;
+        }
+
+        #region TL Bertol Salgado
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display Home Page
+        */
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display About Page
+        */
+        public ActionResult About()
+        {
+            ViewBag.Message = "TEAM4OARS Members";
+            return View();
+        }
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display Contact Page
+        */
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Contact Us";
+
+            return View();
+        }
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display testminonials Page
+        */
+        [AllowAnonymous]
+        public ActionResult Testimonials(string keyWord)
+        {
+            ViewBag.Message = "Search a Testimonial";
+            return View();
+        }
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display Chat Page
+        */
+        [AllowAnonymous]
+        public ActionResult Chat()
+        {
+            TEAM4OARSRoleProvider rp = new TEAM4OARSRoleProvider();
+            string[] roles = new string[1];
+            ViewBag.Message = "Welcome to the Chat Room";
+            if(User.Identity.IsAuthenticated)
+            {
+                roles = rp.GetRolesForUser(User.Identity.Name);
+                ViewBag.Role = roles[0];
+            }
+            else
+            {
+                ViewBag.Role = "Visitor";
+            }
+            return View();
+        }
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display Staff Index Page
+        */
+        [TEAM4OARSAuthorize(Roles = "Assistant,Manager,Supervisor")]
+        public ActionResult StaffIndex()
+        {
+            return View();
+        }
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display all Vacant Apartments
+        */
+        [TEAM4OARSAuthorize(Roles = "Manager")]
+        public ActionResult ListAptVacant()
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                return View(dc.View_VacantApt.ToList());
+            }
+        }
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Action use to display testimonials Results
+        */
+        public ActionResult TestimonialsResults(string keyword)
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var parameter = new SqlParameter { ParameterName = "Keyword", Value = keyword.ToString() };
+                var result = dc.Database.SqlQuery<Models.ViewTestimonialsResult>("exec sp_findTestimonial @Keyword", parameter).ToList<Models.ViewTestimonialsResult>();
+                return View(result);
+            }
+        }
+
+        #endregion
+
+        #region Garrett Bellomy
+
+        /* Garrett Bellomy
+         * 1128654
+         * COSC 5351
+         * Spring 2016
+        */
+        [TEAM4OARSAuthorize(Roles ="Manager,Assistant,Supervisor")]
+        public ActionResult ListTenants()
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                return View(dc.View_Tenant.ToList());
+            }
+        }
+
+        /* Garrett Bellomy
+         * 1128654
+         * COSC 5351
+         * Spring 2016
+        */
+        [TEAM4OARSAuthorize(Roles = "Manager,Assistant,Supervisor")]
+        [HttpPost]
+        public ActionResult ListPayments(string apt_no)
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                if (apt_no == null)
+                {
+                    var Payments = dc.Rental_Invoice.ToList();
+                    return View(Payments);
+                }
+                else
+                {
+                    List<Models.Rental_Invoice> invoice = new List<Models.Rental_Invoice>();
+
+                    foreach(Models.Rental_Invoice temp in dc.Rental_Invoice)
+                    {
+                        if (temp.CC_No == apt_no) invoice.Add(temp);
+                    }
+
+                    var Payments = dc.Rental_Invoice.SqlQuery("Select ");
+
+                    return View(invoice);
+                }
+            }
+        }
+
+        /* Garrett Bellomy
+         * 1128654
+         * COSC 5351
+         * Spring 2016
+        */
+        [TEAM4OARSAuthorize(Roles = "Tenant")]
+        public ActionResult ViewAgreement()
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var tenant = dc.Tenants.Where(s => s.Tenant_Username.Equals(User.Identity.Name)).FirstOrDefault();
+
+                IEnumerable<Models.View_Rental> agreement = dc.View_Rental.Where(s => s.Tenant_SS.Equals(tenant.Tenant_SS));
+                return View(agreement.ToList());
+            }
+        }
+
+        #endregion
+
+        #region Ali ElSaadi
+
+        [TEAM4OARSAuthorize(Roles = "Tenant")]
+        public ActionResult EnterComplaint()
+        {
+            return View();
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Tenant")]
+        [HttpPost]
+        public ActionResult EnterComplaint(Models.Complaint c)
+        {
+            using (Models.TEAM4OARSEntities db = new Models.TEAM4OARSEntities())
+            {
+                var tenant = db.Tenants.Where(s => s.Tenant_Username.Equals(User.Identity.Name)).FirstOrDefault();
+                var rental = db.Owns.Where(s => s.Tenant_SS == tenant.Tenant_SS).FirstOrDefault();
+                c.Rental_No = rental.Rental_No;
+                c.Apt_no = rental.Apt_No;
+                c.Complaint_Date = DateTime.Now;
+                c.Status = "P";
+                if (ModelState.IsValid)
+                {
+                    db.Complaints.Add(c);
+                    db.SaveChanges();
+                    setFeedbackMsg("Complaint entered successfully", "text-success");
+                    return View();
+                }
+                else
+                {
+                    setFeedbackMsg("There were errors. Please check the form.", "text-danger");
+                    return View();
+                }
+            }
+
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Tenant")]
+        public ActionResult EnterTestimonial()
+        {
+            return View();
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Tenant")]
+        [HttpPost]
+        public ActionResult EnterTestimonial(Models.Testimonial newTestimonial)
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var tenant = dc.Tenants.Where(s => s.Tenant_Username.Equals(User.Identity.Name)).FirstOrDefault();
+                newTestimonial.Tenant_SS = tenant.Tenant_SS;
+                newTestimonial.Testimonial_Date = DateTime.Now;
+
+                if (ModelState.IsValid)
+                {
+                    dc.Testimonials.Add(newTestimonial);
+                    dc.SaveChanges();
+                    setFeedbackMsg("Testimonial entered successfully.", "text-success");
+                    return View();
+
+                }
+                else
+                {
+                    setFeedbackMsg("There were errors. Please check the form.", "text-danger");
+                    return View(newTestimonial);
+                }
+            }
+        }
+
+
+        [TEAM4OARSAuthorize(Roles = "Tenant")]
+        public ActionResult TenantIntro()
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var tenant = dc.Tenants.Where(s => s.Tenant_Username.Equals(User.Identity.Name)).FirstOrDefault();
+                var tenantInfo = dc.Tenants.Where(s => s.Tenant_SS==tenant.Tenant_SS);
+                var tenantAuto = dc.Tenant_Auto.Where(s => s.Tenant_SS==tenant.Tenant_SS);
+                var tenantFamily = dc.Tenant_Family.Where(s => s.Tenant_SS==tenant.Tenant_SS);
+
+                var TenantData = new Tuple<List<Models.Tenant>, List<Models.Tenant_Auto>, List<Models.Tenant_Family>>(tenantInfo.ToList(),tenantAuto.ToList(),tenantFamily.ToList());
+                return View(TenantData);
+            }
+        }
+
+        #endregion
+
+        #region Ben Wightman
+
+        /* Ben Wightman
+         * 1012702
+         * COSC 4530
+         * Spring 2016
+        */
+        [HttpGet]
+        public ActionResult ListTenantAutoMake()
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var automakes = from m in dc.Tenant_Auto
+                                group m by m.Auto_Make into gp
+                                select new Models.AutoMakeViewModel
+                                {
+                                    autoMake = gp.Key,
+                                    count = gp.Count()
+                                };
+                return View(automakes.ToList());
+            }
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Assistant,Manager,Supervisor")]
+        [HttpGet]
+        public ActionResult CreateRental()
+        {
+            return View();
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Assistant,Manager,Supervisor")]
+        [HttpPost]
+        public ActionResult CreateRental(Models.CreateRentalViewModel vm)
+        {
+            string errormsg = "There were errors. Please double-check the form.";
+            string successmsg = "Rental created successfully.";
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                // Get the current logged-in staff member
+                var staff = dc.Staffs.Where(s => s.Username.Equals(User.Identity.Name)).FirstOrDefault();
+
+                if (staff == null) {
+                    return RedirectToAction("Login", "TEAM4OARSAccount");
+                }
+                
+                Models.Tenant t = dc.Tenants.Where(s => (s.Tenant_SS == vm.tenant.Tenant_SS)).FirstOrDefault();
+                if (t == null) {
+                    ViewData.ModelState.AddModelError("tenant.Tenant_SS", "No tenant with the given SSN exists.");
+                }
+
+                Models.Apartment apt = dc.Apartments.Where(s => (s.Apt_no == vm.aptNo)).FirstOrDefault();
+                if (apt == null) {
+                    ModelState.AddModelError("aptNo", "No apartment with this number exists.");
+                }
+
+                Models.Rental r = new Models.Rental();
+                Models.Own o = new Models.Own();
+
+                if (!ModelState.IsValid) {
+                    setFeedbackMsg(errormsg, "text-danger");
+                    return CreateRental();
+                }
+
+                // Fill in default information for rental
+                r.Lease_Type = vm.Lease_Type;
+                r.Cancel_Date = null;
+                r.Renewal_Date = null;
+                r.Rental_Date = r.Lease_Start = DateTime.Today;
+                r.Rental_Status = "S";
+
+                // Get lease end date, as either 1 or 6 months past today
+                int months;
+                if (r.Lease_Type.Equals("Six"))
+                    months = 6;
+                else
+                    months = 1;
+                r.Lease_End = DateTime.Today.AddMonths(months);
+
+                // Fill Owns information
+                o.Tenant = t;
+                o.Rental = r;
+                o.Apartment = apt;
+
+                if (ModelState.IsValid) {
+                    dc.Rentals.Add(r);
+                    dc.Owns.Add(o);
+                    dc.SaveChanges();
+                }
+
+                setFeedbackMsg(successmsg, "text-success");
+                return CreateRental();
+            }
+        }
+
+        public ActionResult ListStaffAptDetails() {
+            return View();
+        }
+
+        #endregion
+
+        #region Joshua Wilburn
+
+        [TEAM4OARSAuthorize(Roles = "Supervisor")]
+        public ActionResult ListPendingComplaints()
+        {
+            using (Models.TEAM4OARSEntities dataConnection = new Models.TEAM4OARSEntities())
+            {
+                return View(dataConnection.View_Pending_Complaints.ToList());
+            }
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Manager")]
+        public ActionResult ListLeases()
+        {
+            using (Models.TEAM4OARSEntities dataConnection = new Models.TEAM4OARSEntities())
+            {
+                return View(dataConnection.View_LeaseLength.ToList());
+            }
+        }
+
+        #endregion
+
+    }
+}

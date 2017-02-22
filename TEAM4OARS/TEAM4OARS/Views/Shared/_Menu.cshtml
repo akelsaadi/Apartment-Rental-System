@@ -1,0 +1,77 @@
+﻿@{
+
+        /*Author: Bertol Salgado 1361242
+        * COSC 4351
+        * Spring 2016
+        * Partial View to display menu navigation based on Role
+        */
+    var menus = new[]
+    {
+        new {LinkText="Home",ActionName="Index",Controller="Home",Roles="All"},
+        new {LinkText="About",ActionName="About",Controller="Home",Roles="All"},
+        new {LinkText="Contact Us",ActionName="Contact",Controller="Home",Roles="All"},
+        new {LinkText="Testimonials",ActionName="Testimonials",Controller="Home",Roles="All"},
+        new {LinkText="Chat",ActionName="Chat",Controller="Home",Roles="All"},
+        new {LinkText="Display Info",ActionName="DisplayTenantIntro",Controller="Home",Roles="Tenant"},
+        new {LinkText="View Rental",ActionName="LookupRentalAgreement",Controller="Home",Roles="Tenant"},
+        new {LinkText="Pay Rent",ActionName="PayRent",Controller="Home",Roles="Tenant"},
+        new {LinkText="Enter Complaint",ActionName="EnterComplaint",Controller="Home",Roles="Tenant"},
+        new {LinkText="Enter Testimonial",ActionName="EnterTestimonial",Controller="Home",Roles="Tenant"},
+        new {LinkText="Create Rental",ActionName="CreateRental",Controller="Home",Roles="Assistant"},
+        new {LinkText="View Vacant Apts",ActionName="ListAptVacant",Controller="Home",Roles="Manager"},
+        new {LinkText="Auto Make List",ActionName="ListTenantAutoMake",Controller="Home",Roles="Manager"},
+        new {LinkText="List Leases",ActionName="ListLeases",Controller="Home",Roles="Manager"},
+        new {LinkText="List Rent Collected",ActionName="ListRentCollected",Controller="Home",Roles="Manager"},
+        new {LinkText="Pending Complaints",ActionName="ListPendingComplaints",Controller="Home",Roles="Supervisor"},
+        new {LinkText="Staff Rental Details",ActionName="ListStaffRentalDetails",Controller="Home",Roles="Supervisor"},
+         new {LinkText="Staff Apt Details",ActionName="ListStaffAptDetails",Controller="Home",Roles="Supervisor"},
+           new {LinkText="Update Complaint",ActionName="ListComplaints",Controller="Home",Roles="Supervisor"},
+           new {LinkText="Tenant List",ActionName="ListTenants",Controller="Home",Roles="Assistant,Manager,Supervisor"},
+           new {LinkText="Payment List",ActionName="ListPayments",Controller="Home",Roles="Assistant,Manager,Supervisor"}
+    };
+
+    <ul class="nav navbar-nav">
+        @if (Request.IsAuthenticated)
+        {
+            TEAM4OARSRoleProvider userRoles = new TEAM4OARSRoleProvider();
+            String[] roles = userRoles.GetRolesForUser(User.Identity.Name);
+            var publiclinks = from item in menus
+                              where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries).Any(x => new String[] { "All", "Anonymous" }.Contains(x))
+                              select item;
+
+            foreach (var publiclink in publiclinks)
+            {
+                @:
+                <li>@Html.ActionLink(publiclink.LinkText, publiclink.ActionName, publiclink.Controller)</li>
+            }
+
+            var links = from item in menus
+                        where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries).Any(x => roles.Contains(x))
+                        select item;
+            
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    @foreach (var link in links)
+                    {
+                        @:
+                        <li><a href="#">@Html.ActionLink(link.LinkText, link.ActionName, link.Controller)</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            var links = from item in menus
+                        where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries).Any(x => new String[] { "All", "Anonymous" }.Contains(x))
+                        select item;
+
+            foreach (var link in links)
+            {
+                @:
+                <li>@Html.ActionLink(link.LinkText, link.ActionName, link.Controller)</li>
+            }
+
+        }
+    </ul>
+}
+@Scripts.Render("~/bundles/jquery")

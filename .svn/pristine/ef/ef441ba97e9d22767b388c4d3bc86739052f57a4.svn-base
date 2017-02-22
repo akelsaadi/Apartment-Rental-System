@@ -1,0 +1,41 @@
+﻿<!--Garrett Bellomy
+    1128654
+    COSC 5351
+    Spring 2016-->
+
+@model IEnumerable<TEAM4OARS.Models.View_Tenant>
+
+@{
+    ViewBag.Title = "Tenant List";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenant_SS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenant_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apt_no)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant_SS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apt_no)
+        </td>
+    </tr>
+}
+
+</table>

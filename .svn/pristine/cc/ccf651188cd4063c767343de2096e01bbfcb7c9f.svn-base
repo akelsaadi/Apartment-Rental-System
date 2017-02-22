@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Team Members";
+}
+<div class="row">
+    <div class="col-md-4 text-center">
+    </div>
+    <div class="col-md-4 text-center">
+        <h1>@ViewData["Message"]</h1>
+    </div>
+    <div class="col-md-4 text-center">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 text-center">
+    </div>
+    <div class="col-md-4 text-center">
+        <img class="smallCircle" src="~/images/About/TL.jpg">
+        <h1>Team Leader</h1>
+        <h3>Bertol Salgado</h3>
+    </div>
+    <div class="col-md-4 text-center">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 text-center">
+        <img class="smallCircle" src="~/images/About/DBA.jpg">
+        <h1>DBA</h1>
+        <h3>Joseph Nguyen</h3>
+    </div>
+    <div class="col-md-4 text-center">
+        <img class="smallCircle" src="~/images/About/SQA.jpg">
+        <h1>SQA</h1>
+        <h3>Ben Wightman</h3>
+    </div>
+    <div class="col-md-4 text-center">
+        <img class="smallCircle" src="~/images/About/DBA2.jpg">
+        <h1>DBA</h1>
+        <h3>Stephen Carver</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 text-center">
+        <img class="smallCircle" src="~/images/About/TM.jpg">
+        <h1>Team Member</h1>
+        <h3>Ali Elsaadi M</h3>
+    </div>
+    <div class="col-md-4 text-center">
+        <img class="smallCircle" src="~/images/About/TM2.jpg">
+        <h1>Team Member</h1>
+        <h3>Joshua Wilburn</h3>
+    </div>
+    <div class="col-md-4 text-center">
+        <img class="smallCircle" src="~/images/About/TM3.jpg">
+        <h1>Team Member</h1>
+        <h3>Garett Bellomy </h3>
+    </div>
+</div>

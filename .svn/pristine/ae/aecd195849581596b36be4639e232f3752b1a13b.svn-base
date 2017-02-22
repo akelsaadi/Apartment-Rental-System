@@ -1,0 +1,65 @@
+﻿@model TEAM4OARS.Models.CreateRentalViewModel
+@{
+    ViewBag.Title = "CreateRental";
+}
+
+<h2>CreateRental</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Create Rental</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if(TempData["msg"] != null) {
+            <div class="@TempData["msgClass"]">@TempData["msg"]</div>
+        }
+
+        <div class="form-group">            
+            <!-- Tenant SSN-->
+            <div class="form-group">
+                @Html.Label("Tenant SSN", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tenant.Tenant_SS, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tenant.Tenant_SS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <hr />
+            <!-- Lease type -->
+            <div class="form-group">
+                @Html.Label("Lease type", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @{
+                        List<string> LeaseTypeValues = new List<string>();
+                        LeaseTypeValues.Add("One");
+                        LeaseTypeValues.Add("Six");
+                        SelectList list = new SelectList(LeaseTypeValues);
+                    }
+                    @Html.DropDownListFor(model => model.Lease_Type, list, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor( model => model.Lease_Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Apartment no. -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.aptNo, "Apartment no.", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.aptNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.aptNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

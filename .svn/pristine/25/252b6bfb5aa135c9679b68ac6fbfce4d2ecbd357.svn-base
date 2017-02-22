@@ -1,0 +1,24 @@
+UCLookupRentalAgreement(Tenant user, RentalID)
+{
+	if (user.RentalID == RentalID)
+	{
+		Display ("Rental Number: " + user.RentalNumber);
+		Display ("Rental Date: " + user.RentalDate);
+		Display ("Apartment Number: " + user.ApartmentNumber);
+		Display ("Apartment Type: " + user.ApartmentType);
+		Display ("Apartment Deposit" + user.ApartmentDeposit);
+		
+		radio1 = new RadioButton("Six Months");
+		radio2 = new RadioButton("One Year");
+		if (user.LeaseType == "Six Months")
+			radio1.check();
+		else
+			radio2.check();
+		
+		Display ("SSN: " + user.SSN);
+		Display ("Tenant Name: " + user.TenantName);
+		Display ("Tenant Work Number: " + user.TenantWorkNumber);
+		Display ("Tenant DOB: " + user.TenantDOB);
+	}
+	else send error report
+}

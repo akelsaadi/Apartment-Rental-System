@@ -1,0 +1,958 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TEAM4OARSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Apartment">
+          <Key>
+            <PropertyRef Name="Apt_no" />
+          </Key>
+          <Property Name="Apt_no" Type="int" Nullable="false" />
+          <Property Name="Apt_Type" Type="char" MaxLength="1" />
+          <Property Name="Apt_Status" Type="char" MaxLength="1" />
+          <Property Name="Apt_Utility" Type="char" MaxLength="1" />
+          <Property Name="Apt_Deposit_Amt" Type="real" />
+          <Property Name="Apt_Rent_Amt" Type="real" />
+        </EntityType>
+        <EntityType Name="Complaint">
+          <Key>
+            <PropertyRef Name="Complaint_No" />
+          </Key>
+          <Property Name="Complaint_No" Type="int" Nullable="false" />
+          <Property Name="Complaint_Date" Type="datetime" />
+          <Property Name="Rental_Complaint" Type="char" MaxLength="160" />
+          <Property Name="Apt_Complaint" Type="char" MaxLength="160" />
+          <Property Name="Status" Type="char" MaxLength="1" />
+          <Property Name="Tenant_SS" Type="int" />
+        </EntityType>
+        <EntityType Name="Lives_In">
+          <Key>
+            <PropertyRef Name="Apt_No" />
+            <PropertyRef Name="Tenant_SS" />
+          </Key>
+          <Property Name="Apt_No" Type="int" Nullable="false" />
+          <Property Name="Tenant_SS" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Owns">
+          <Key>
+            <PropertyRef Name="Tenant_SS" />
+            <PropertyRef Name="Rental_No" />
+            <PropertyRef Name="Staff_number" />
+            <PropertyRef Name="Apt_No" />
+          </Key>
+          <Property Name="Tenant_SS" Type="int" Nullable="false" />
+          <Property Name="Rental_No" Type="int" Nullable="false" />
+          <Property Name="Staff_number" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Apt_No" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="Rental_No" />
+          </Key>
+          <Property Name="Rental_No" Type="int" Nullable="false" />
+          <Property Name="Rental_Date" Type="datetime" />
+          <Property Name="Rental_Status" Type="char" MaxLength="1" />
+          <Property Name="Cancel_Date" Type="datetime" />
+          <Property Name="Lease_Type" Type="char" MaxLength="30" />
+          <Property Name="Lease_Start" Type="datetime" />
+          <Property Name="Lease_End" Type="datetime" />
+          <Property Name="Renewal_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Rental_Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_No" />
+          </Key>
+          <Property Name="Invoice_No" Type="int" Nullable="false" />
+          <Property Name="Invoice_Date" Type="datetime" />
+          <Property Name="Invoice_Due" Type="real" />
+          <Property Name="CC_No" Type="char" MaxLength="16" />
+          <Property Name="CC_Type" Type="char" MaxLength="10" />
+          <Property Name="CC_Exp_Date" Type="datetime" />
+          <Property Name="CC_Amt" Type="real" />
+          <Property Name="Rental_No" Type="int" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Staff_number" />
+          </Key>
+          <Property Name="Staff_number" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="First_Name" Type="char" MaxLength="50" />
+          <Property Name="Last_Name" Type="char" MaxLength="50" />
+          <Property Name="Position" Type="char" MaxLength="50" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Salary" Type="real" />
+          <Property Name="Username" Type="char" MaxLength="20" />
+          <Property Name="Password" Type="char" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Tenant">
+          <Key>
+            <PropertyRef Name="Tenant_SS" />
+          </Key>
+          <Property Name="Tenant_SS" Type="int" Nullable="false" />
+          <Property Name="Tenant_Name" Type="char" MaxLength="30" />
+          <Property Name="Tenant_DOB" Type="datetime" />
+          <Property Name="Tenant_Marital" Type="char" MaxLength="1" />
+          <Property Name="Work_Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Home_Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Employer" Type="char" MaxLength="30" />
+          <Property Name="Tenant_Gender" Type="char" MaxLength="30" />
+          <Property Name="Tenant_Username" Type="char" MaxLength="30" />
+          <Property Name="Tenant_Password" Type="char" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Tenant_Auto">
+          <Key>
+            <PropertyRef Name="License_No" />
+          </Key>
+          <Property Name="License_No" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="Auto_Make" Type="char" MaxLength="30" />
+          <Property Name="Auto_Model" Type="char" MaxLength="30" />
+          <Property Name="Auto_Year" Type="int" />
+          <Property Name="Auto_Color" Type="char" MaxLength="30" />
+          <Property Name="Tenant_SS" Type="int" />
+        </EntityType>
+        <EntityType Name="Tenant_Family">
+          <Key>
+            <PropertyRef Name="Family_SS" />
+          </Key>
+          <Property Name="Family_SS" Type="int" Nullable="false" />
+          <Property Name="Family_Name" Type="char" MaxLength="30" />
+          <Property Name="Spouse" Type="char" MaxLength="1" />
+          <Property Name="Child" Type="char" MaxLength="1" />
+          <Property Name="Divorced" Type="char" MaxLength="1" />
+          <Property Name="Single" Type="char" MaxLength="1" />
+          <Property Name="Family_Gender" Type="char" MaxLength="1" />
+          <Property Name="Family_DOB" Type="datetime" />
+          <Property Name="Tenant_SS" Type="int" />
+        </EntityType>
+        <EntityType Name="Testimonial">
+          <Key>
+            <PropertyRef Name="Testimonial_ID" />
+          </Key>
+          <Property Name="Testimonial_ID" Type="int" Nullable="false" />
+          <Property Name="Testimonial_Date" Type="datetime" />
+          <Property Name="Testimonial_Content" Type="char" MaxLength="256" />
+          <Property Name="Tenant_SS" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM4OARS.TEAM4OARS.ViewRental' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewRental">
+          <Key>
+            <PropertyRef Name="Tenant_SS" />
+            <PropertyRef Name="Rental_No" />
+          </Key>
+          <Property Name="Tenant_SS" Type="int" Nullable="false" />
+          <Property Name="Tenant_Name" Type="char" MaxLength="30" />
+          <Property Name="Tenant_DOB" Type="datetime" />
+          <Property Name="Rental_No" Type="int" Nullable="false" />
+          <Property Name="Rental_Date" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM4OARS.TEAM4OARS.ViewTenantAuto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewTenantAuto">
+          <Key>
+            <PropertyRef Name="License_No" />
+          </Key>
+          <Property Name="License_No" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="Auto_Make" Type="char" MaxLength="30" />
+          <Property Name="Auto_Model" Type="char" MaxLength="30" />
+          <Property Name="Auto_Year" Type="int" />
+          <Property Name="Auto_Color" Type="char" MaxLength="30" />
+          <Property Name="Tenant_SS" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM4OARS.TEAM4OARS.ViewTenantFamily' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewTenantFamily">
+          <Key>
+            <PropertyRef Name="Family_SS" />
+          </Key>
+          <Property Name="Family_SS" Type="int" Nullable="false" />
+          <Property Name="Family_Name" Type="char" MaxLength="30" />
+          <Property Name="Spouse" Type="char" MaxLength="1" />
+          <Property Name="Child" Type="char" MaxLength="1" />
+          <Property Name="Divorced" Type="char" MaxLength="1" />
+          <Property Name="Single" Type="char" MaxLength="1" />
+          <Property Name="Family_Gender" Type="char" MaxLength="1" />
+          <Property Name="Family_DOB" Type="datetime" />
+          <Property Name="Tenant_SS" Type="int" />
+        </EntityType>
+        <Association Name="FK__Complaint__Tenan__25077354">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Complaint" Type="Self.Complaint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Complaint">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lives_In__Apt_No__11007AA7">
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="1" />
+          <End Role="Lives_In" Type="Self.Lives_In" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartment">
+              <PropertyRef Name="Apt_no" />
+            </Principal>
+            <Dependent Role="Lives_In">
+              <PropertyRef Name="Apt_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lives_In__Tenant__11F49EE0">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="1" />
+          <End Role="Lives_In" Type="Self.Lives_In" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Lives_In">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Owns__Apt_No__1E5A75C5">
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Owns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartment">
+              <PropertyRef Name="Apt_no" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Apt_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Owns__Rental_No__1F4E99FE">
+          <End Role="Rental" Type="Self.Rental" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Owns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental">
+              <PropertyRef Name="Rental_No" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Rental_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Owns__Staff_numb__1D66518C">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Owns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Staff_number" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Staff_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Owns__Tenant_SS__1C722D53">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Owns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rental_In__Renta__222B06A9">
+          <End Role="Rental" Type="Self.Rental" Multiplicity="0..1" />
+          <End Role="Rental_Invoice" Type="Self.Rental_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental">
+              <PropertyRef Name="Rental_No" />
+            </Principal>
+            <Dependent Role="Rental_Invoice">
+              <PropertyRef Name="Rental_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tenant_Au__Tenan__14D10B8B">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Tenant_Auto" Type="Self.Tenant_Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Tenant_Auto">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tenant_Fa__Tenan__17AD7836">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Tenant_Family" Type="Self.Tenant_Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Tenant_Family">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Testimoni__Tenan__27E3DFFF">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Testimonial" Type="Self.Testimonial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Testimonial">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TEAM4OARSModelStoreContainer">
+          <EntitySet Name="Apartment" EntityType="Self.Apartment" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Complaint" EntityType="Self.Complaint" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Lives_In" EntityType="Self.Lives_In" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Owns" EntityType="Self.Owns" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Rental" EntityType="Self.Rental" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Rental_Invoice" EntityType="Self.Rental_Invoice" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Tenant" EntityType="Self.Tenant" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Tenant_Auto" EntityType="Self.Tenant_Auto" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Tenant_Family" EntityType="Self.Tenant_Family" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="Testimonial" EntityType="Self.Testimonial" Schema="TEAM4OARS" store:Type="Tables" />
+          <EntitySet Name="ViewRental" EntityType="Self.ViewRental" store:Type="Views" store:Schema="TEAM4OARS">
+            <DefiningQuery>SELECT 
+    [ViewRental].[Tenant_SS] AS [Tenant_SS], 
+    [ViewRental].[Tenant_Name] AS [Tenant_Name], 
+    [ViewRental].[Tenant_DOB] AS [Tenant_DOB], 
+    [ViewRental].[Rental_No] AS [Rental_No], 
+    [ViewRental].[Rental_Date] AS [Rental_Date]
+    FROM [TEAM4OARS].[ViewRental] AS [ViewRental]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewTenantAuto" EntityType="Self.ViewTenantAuto" store:Type="Views" store:Schema="TEAM4OARS">
+            <DefiningQuery>SELECT 
+    [ViewTenantAuto].[License_No] AS [License_No], 
+    [ViewTenantAuto].[Auto_Make] AS [Auto_Make], 
+    [ViewTenantAuto].[Auto_Model] AS [Auto_Model], 
+    [ViewTenantAuto].[Auto_Year] AS [Auto_Year], 
+    [ViewTenantAuto].[Auto_Color] AS [Auto_Color], 
+    [ViewTenantAuto].[Tenant_SS] AS [Tenant_SS]
+    FROM [TEAM4OARS].[ViewTenantAuto] AS [ViewTenantAuto]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewTenantFamily" EntityType="Self.ViewTenantFamily" store:Type="Views" store:Schema="TEAM4OARS">
+            <DefiningQuery>SELECT 
+    [ViewTenantFamily].[Family_SS] AS [Family_SS], 
+    [ViewTenantFamily].[Family_Name] AS [Family_Name], 
+    [ViewTenantFamily].[Spouse] AS [Spouse], 
+    [ViewTenantFamily].[Child] AS [Child], 
+    [ViewTenantFamily].[Divorced] AS [Divorced], 
+    [ViewTenantFamily].[Single] AS [Single], 
+    [ViewTenantFamily].[Family_Gender] AS [Family_Gender], 
+    [ViewTenantFamily].[Family_DOB] AS [Family_DOB], 
+    [ViewTenantFamily].[Tenant_SS] AS [Tenant_SS]
+    FROM [TEAM4OARS].[ViewTenantFamily] AS [ViewTenantFamily]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Complaint__Tenan__25077354" Association="Self.FK__Complaint__Tenan__25077354">
+            <End Role="Tenant" EntitySet="Tenant" />
+            <End Role="Complaint" EntitySet="Complaint" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lives_In__Apt_No__11007AA7" Association="Self.FK__Lives_In__Apt_No__11007AA7">
+            <End Role="Apartment" EntitySet="Apartment" />
+            <End Role="Lives_In" EntitySet="Lives_In" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lives_In__Tenant__11F49EE0" Association="Self.FK__Lives_In__Tenant__11F49EE0">
+            <End Role="Tenant" EntitySet="Tenant" />
+            <End Role="Lives_In" EntitySet="Lives_In" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Owns__Apt_No__1E5A75C5" Association="Self.FK__Owns__Apt_No__1E5A75C5">
+            <End Role="Apartment" EntitySet="Apartment" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Owns__Rental_No__1F4E99FE" Association="Self.FK__Owns__Rental_No__1F4E99FE">
+            <End Role="Rental" EntitySet="Rental" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Owns__Staff_numb__1D66518C" Association="Self.FK__Owns__Staff_numb__1D66518C">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Owns__Tenant_SS__1C722D53" Association="Self.FK__Owns__Tenant_SS__1C722D53">
+            <End Role="Tenant" EntitySet="Tenant" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rental_In__Renta__222B06A9" Association="Self.FK__Rental_In__Renta__222B06A9">
+            <End Role="Rental" EntitySet="Rental" />
+            <End Role="Rental_Invoice" EntitySet="Rental_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tenant_Au__Tenan__14D10B8B" Association="Self.FK__Tenant_Au__Tenan__14D10B8B">
+            <End Role="Tenant" EntitySet="Tenant" />
+            <End Role="Tenant_Auto" EntitySet="Tenant_Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tenant_Fa__Tenan__17AD7836" Association="Self.FK__Tenant_Fa__Tenan__17AD7836">
+            <End Role="Tenant" EntitySet="Tenant" />
+            <End Role="Tenant_Family" EntitySet="Tenant_Family" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Testimoni__Tenan__27E3DFFF" Association="Self.FK__Testimoni__Tenan__27E3DFFF">
+            <End Role="Tenant" EntitySet="Tenant" />
+            <End Role="Testimonial" EntitySet="Testimonial" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TEAM4OARSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Apartment">
+          <Key>
+            <PropertyRef Name="Apt_no" />
+          </Key>
+          <Property Name="Apt_no" Type="Int32" Nullable="false" />
+          <Property Name="Apt_Type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Apt_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Apt_Utility" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Apt_Deposit_Amt" Type="Single" />
+          <Property Name="Apt_Rent_Amt" Type="Single" />
+          <NavigationProperty Name="Owns" Relationship="Self.FK__Owns__Apt_No__1E5A75C5" FromRole="Apartment" ToRole="Owns" />
+          <NavigationProperty Name="Tenants" Relationship="Self.Lives_In" FromRole="Apartment" ToRole="Tenant" />
+        </EntityType>
+        <EntityType Name="Complaint">
+          <Key>
+            <PropertyRef Name="Complaint_No" />
+          </Key>
+          <Property Name="Complaint_No" Type="Int32" Nullable="false" />
+          <Property Name="Complaint_Date" Type="DateTime" Precision="3" />
+          <Property Name="Rental_Complaint" Type="String" MaxLength="160" FixedLength="true" Unicode="false" />
+          <Property Name="Apt_Complaint" Type="String" MaxLength="160" FixedLength="true" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_SS" Type="Int32" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK__Complaint__Tenan__25077354" FromRole="Complaint" ToRole="Tenant" />
+        </EntityType>
+        <EntityType Name="Own">
+          <Key>
+            <PropertyRef Name="Tenant_SS" />
+            <PropertyRef Name="Rental_No" />
+            <PropertyRef Name="Staff_number" />
+            <PropertyRef Name="Apt_No" />
+          </Key>
+          <Property Name="Tenant_SS" Type="Int32" Nullable="false" />
+          <Property Name="Rental_No" Type="Int32" Nullable="false" />
+          <Property Name="Staff_number" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Apt_No" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Apartment" Relationship="Self.FK__Owns__Apt_No__1E5A75C5" FromRole="Owns" ToRole="Apartment" />
+          <NavigationProperty Name="Rental" Relationship="Self.FK__Owns__Rental_No__1F4E99FE" FromRole="Owns" ToRole="Rental" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Owns__Staff_numb__1D66518C" FromRole="Owns" ToRole="Staff" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK__Owns__Tenant_SS__1C722D53" FromRole="Owns" ToRole="Tenant" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="Rental_No" />
+          </Key>
+          <Property Name="Rental_No" Type="Int32" Nullable="false" />
+          <Property Name="Rental_Date" Type="DateTime" Precision="3" />
+          <Property Name="Rental_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Cancel_Date" Type="DateTime" Precision="3" />
+          <Property Name="Lease_Type" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Lease_Start" Type="DateTime" Precision="3" />
+          <Property Name="Lease_End" Type="DateTime" Precision="3" />
+          <Property Name="Renewal_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Owns" Relationship="Self.FK__Owns__Rental_No__1F4E99FE" FromRole="Rental" ToRole="Owns" />
+          <NavigationProperty Name="Rental_Invoice" Relationship="Self.FK__Rental_In__Renta__222B06A9" FromRole="Rental" ToRole="Rental_Invoice" />
+        </EntityType>
+        <EntityType Name="Rental_Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_No" />
+          </Key>
+          <Property Name="Invoice_No" Type="Int32" Nullable="false" />
+          <Property Name="Invoice_Date" Type="DateTime" Precision="3" />
+          <Property Name="Invoice_Due" Type="Single" />
+          <Property Name="CC_No" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="CC_Type" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CC_Exp_Date" Type="DateTime" Precision="3" />
+          <Property Name="CC_Amt" Type="Single" />
+          <Property Name="Rental_No" Type="Int32" />
+          <NavigationProperty Name="Rental" Relationship="Self.FK__Rental_In__Renta__222B06A9" FromRole="Rental_Invoice" ToRole="Rental" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Staff_number" />
+          </Key>
+          <Property Name="Staff_number" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Salary" Type="Single" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Owns" Relationship="Self.FK__Owns__Staff_numb__1D66518C" FromRole="Staff" ToRole="Owns" />
+        </EntityType>
+        <EntityType Name="Tenant">
+          <Key>
+            <PropertyRef Name="Tenant_SS" />
+          </Key>
+          <Property Name="Tenant_SS" Type="Int32" Nullable="false" />
+          <Property Name="Tenant_Name" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_DOB" Type="DateTime" Precision="3" />
+          <Property Name="Tenant_Marital" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Work_Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Home_Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Employer" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_Gender" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_Username" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_Password" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Complaints" Relationship="Self.FK__Complaint__Tenan__25077354" FromRole="Tenant" ToRole="Complaint" />
+          <NavigationProperty Name="Owns" Relationship="Self.FK__Owns__Tenant_SS__1C722D53" FromRole="Tenant" ToRole="Owns" />
+          <NavigationProperty Name="Tenant_Auto" Relationship="Self.FK__Tenant_Au__Tenan__14D10B8B" FromRole="Tenant" ToRole="Tenant_Auto" />
+          <NavigationProperty Name="Tenant_Family" Relationship="Self.FK__Tenant_Fa__Tenan__17AD7836" FromRole="Tenant" ToRole="Tenant_Family" />
+          <NavigationProperty Name="Testimonials" Relationship="Self.FK__Testimoni__Tenan__27E3DFFF" FromRole="Tenant" ToRole="Testimonial" />
+          <NavigationProperty Name="Apartments" Relationship="Self.Lives_In" FromRole="Tenant" ToRole="Apartment" />
+        </EntityType>
+        <EntityType Name="Tenant_Auto">
+          <Key>
+            <PropertyRef Name="License_No" />
+          </Key>
+          <Property Name="License_No" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Auto_Make" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Auto_Model" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Auto_Year" Type="Int32" />
+          <Property Name="Auto_Color" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_SS" Type="Int32" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK__Tenant_Au__Tenan__14D10B8B" FromRole="Tenant_Auto" ToRole="Tenant" />
+        </EntityType>
+        <EntityType Name="Tenant_Family">
+          <Key>
+            <PropertyRef Name="Family_SS" />
+          </Key>
+          <Property Name="Family_SS" Type="Int32" Nullable="false" />
+          <Property Name="Family_Name" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Spouse" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Child" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Divorced" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Single" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Family_Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Family_DOB" Type="DateTime" Precision="3" />
+          <Property Name="Tenant_SS" Type="Int32" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK__Tenant_Fa__Tenan__17AD7836" FromRole="Tenant_Family" ToRole="Tenant" />
+        </EntityType>
+        <EntityType Name="Testimonial">
+          <Key>
+            <PropertyRef Name="Testimonial_ID" />
+          </Key>
+          <Property Name="Testimonial_ID" Type="Int32" Nullable="false" />
+          <Property Name="Testimonial_Date" Type="DateTime" Precision="3" />
+          <Property Name="Testimonial_Content" Type="String" MaxLength="256" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_SS" Type="Int32" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK__Testimoni__Tenan__27E3DFFF" FromRole="Testimonial" ToRole="Tenant" />
+        </EntityType>
+        <EntityType Name="ViewRental">
+          <Key>
+            <PropertyRef Name="Tenant_SS" />
+            <PropertyRef Name="Rental_No" />
+          </Key>
+          <Property Name="Tenant_SS" Type="Int32" Nullable="false" />
+          <Property Name="Tenant_Name" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_DOB" Type="DateTime" Precision="3" />
+          <Property Name="Rental_No" Type="Int32" Nullable="false" />
+          <Property Name="Rental_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewTenantAuto">
+          <Key>
+            <PropertyRef Name="License_No" />
+          </Key>
+          <Property Name="License_No" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Auto_Make" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Auto_Model" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Auto_Year" Type="Int32" />
+          <Property Name="Auto_Color" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Tenant_SS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ViewTenantFamily">
+          <Key>
+            <PropertyRef Name="Family_SS" />
+          </Key>
+          <Property Name="Family_SS" Type="Int32" Nullable="false" />
+          <Property Name="Family_Name" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Spouse" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Child" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Divorced" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Single" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Family_Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Family_DOB" Type="DateTime" Precision="3" />
+          <Property Name="Tenant_SS" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__Owns__Apt_No__1E5A75C5">
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Own" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartment">
+              <PropertyRef Name="Apt_no" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Apt_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Complaint__Tenan__25077354">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Complaint" Type="Self.Complaint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Complaint">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Owns__Rental_No__1F4E99FE">
+          <End Role="Rental" Type="Self.Rental" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Own" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental">
+              <PropertyRef Name="Rental_No" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Rental_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Owns__Staff_numb__1D66518C">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Own" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Staff_number" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Staff_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Owns__Tenant_SS__1C722D53">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="1" />
+          <End Role="Owns" Type="Self.Own" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Owns">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rental_In__Renta__222B06A9">
+          <End Role="Rental" Type="Self.Rental" Multiplicity="0..1" />
+          <End Role="Rental_Invoice" Type="Self.Rental_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental">
+              <PropertyRef Name="Rental_No" />
+            </Principal>
+            <Dependent Role="Rental_Invoice">
+              <PropertyRef Name="Rental_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tenant_Au__Tenan__14D10B8B">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Tenant_Auto" Type="Self.Tenant_Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Tenant_Auto">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tenant_Fa__Tenan__17AD7836">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Tenant_Family" Type="Self.Tenant_Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Tenant_Family">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Testimoni__Tenan__27E3DFFF">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+          <End Role="Testimonial" Type="Self.Testimonial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_SS" />
+            </Principal>
+            <Dependent Role="Testimonial">
+              <PropertyRef Name="Tenant_SS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Lives_In">
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="*" />
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TEAM4OARSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Apartments" EntityType="Self.Apartment" />
+          <EntitySet Name="Complaints" EntityType="Self.Complaint" />
+          <EntitySet Name="Owns" EntityType="Self.Own" />
+          <EntitySet Name="Rentals" EntityType="Self.Rental" />
+          <EntitySet Name="Rental_Invoice" EntityType="Self.Rental_Invoice" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="Tenants" EntityType="Self.Tenant" />
+          <EntitySet Name="Tenant_Auto" EntityType="Self.Tenant_Auto" />
+          <EntitySet Name="Tenant_Family" EntityType="Self.Tenant_Family" />
+          <EntitySet Name="Testimonials" EntityType="Self.Testimonial" />
+          <EntitySet Name="ViewRentals" EntityType="Self.ViewRental" />
+          <EntitySet Name="ViewTenantAutoes" EntityType="Self.ViewTenantAuto" />
+          <EntitySet Name="ViewTenantFamilies" EntityType="Self.ViewTenantFamily" />
+          <AssociationSet Name="FK__Owns__Apt_No__1E5A75C5" Association="Self.FK__Owns__Apt_No__1E5A75C5">
+            <End Role="Apartment" EntitySet="Apartments" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Complaint__Tenan__25077354" Association="Self.FK__Complaint__Tenan__25077354">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Complaint" EntitySet="Complaints" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Owns__Rental_No__1F4E99FE" Association="Self.FK__Owns__Rental_No__1F4E99FE">
+            <End Role="Rental" EntitySet="Rentals" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Owns__Staff_numb__1D66518C" Association="Self.FK__Owns__Staff_numb__1D66518C">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Owns__Tenant_SS__1C722D53" Association="Self.FK__Owns__Tenant_SS__1C722D53">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Owns" EntitySet="Owns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rental_In__Renta__222B06A9" Association="Self.FK__Rental_In__Renta__222B06A9">
+            <End Role="Rental" EntitySet="Rentals" />
+            <End Role="Rental_Invoice" EntitySet="Rental_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tenant_Au__Tenan__14D10B8B" Association="Self.FK__Tenant_Au__Tenan__14D10B8B">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Tenant_Auto" EntitySet="Tenant_Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tenant_Fa__Tenan__17AD7836" Association="Self.FK__Tenant_Fa__Tenan__17AD7836">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Tenant_Family" EntitySet="Tenant_Family" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Testimoni__Tenan__27E3DFFF" Association="Self.FK__Testimoni__Tenan__27E3DFFF">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Testimonial" EntitySet="Testimonials" />
+          </AssociationSet>
+          <AssociationSet Name="Lives_In" Association="Self.Lives_In">
+            <End Role="Apartment" EntitySet="Apartments" />
+            <End Role="Tenant" EntitySet="Tenants" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TEAM4OARSModelStoreContainer" CdmEntityContainer="TEAM4OARSEntities">
+          <EntitySetMapping Name="Apartments">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Apartment">
+              <MappingFragment StoreEntitySet="Apartment">
+                <ScalarProperty Name="Apt_no" ColumnName="Apt_no" />
+                <ScalarProperty Name="Apt_Type" ColumnName="Apt_Type" />
+                <ScalarProperty Name="Apt_Status" ColumnName="Apt_Status" />
+                <ScalarProperty Name="Apt_Utility" ColumnName="Apt_Utility" />
+                <ScalarProperty Name="Apt_Deposit_Amt" ColumnName="Apt_Deposit_Amt" />
+                <ScalarProperty Name="Apt_Rent_Amt" ColumnName="Apt_Rent_Amt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Complaints">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Complaint">
+              <MappingFragment StoreEntitySet="Complaint">
+                <ScalarProperty Name="Complaint_No" ColumnName="Complaint_No" />
+                <ScalarProperty Name="Complaint_Date" ColumnName="Complaint_Date" />
+                <ScalarProperty Name="Rental_Complaint" ColumnName="Rental_Complaint" />
+                <ScalarProperty Name="Apt_Complaint" ColumnName="Apt_Complaint" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Owns">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Own">
+              <MappingFragment StoreEntitySet="Owns">
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+                <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+                <ScalarProperty Name="Staff_number" ColumnName="Staff_number" />
+                <ScalarProperty Name="Apt_No" ColumnName="Apt_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rentals">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Rental">
+              <MappingFragment StoreEntitySet="Rental">
+                <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+                <ScalarProperty Name="Rental_Date" ColumnName="Rental_Date" />
+                <ScalarProperty Name="Rental_Status" ColumnName="Rental_Status" />
+                <ScalarProperty Name="Cancel_Date" ColumnName="Cancel_Date" />
+                <ScalarProperty Name="Lease_Type" ColumnName="Lease_Type" />
+                <ScalarProperty Name="Lease_Start" ColumnName="Lease_Start" />
+                <ScalarProperty Name="Lease_End" ColumnName="Lease_End" />
+                <ScalarProperty Name="Renewal_Date" ColumnName="Renewal_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rental_Invoice">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Rental_Invoice">
+              <MappingFragment StoreEntitySet="Rental_Invoice">
+                <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
+                <ScalarProperty Name="Invoice_Date" ColumnName="Invoice_Date" />
+                <ScalarProperty Name="Invoice_Due" ColumnName="Invoice_Due" />
+                <ScalarProperty Name="CC_No" ColumnName="CC_No" />
+                <ScalarProperty Name="CC_Type" ColumnName="CC_Type" />
+                <ScalarProperty Name="CC_Exp_Date" ColumnName="CC_Exp_Date" />
+                <ScalarProperty Name="CC_Amt" ColumnName="CC_Amt" />
+                <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Staff_number" ColumnName="Staff_number" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tenants">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Tenant">
+              <MappingFragment StoreEntitySet="Tenant">
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+                <ScalarProperty Name="Tenant_Name" ColumnName="Tenant_Name" />
+                <ScalarProperty Name="Tenant_DOB" ColumnName="Tenant_DOB" />
+                <ScalarProperty Name="Tenant_Marital" ColumnName="Tenant_Marital" />
+                <ScalarProperty Name="Work_Phone" ColumnName="Work_Phone" />
+                <ScalarProperty Name="Home_Phone" ColumnName="Home_Phone" />
+                <ScalarProperty Name="Employer" ColumnName="Employer" />
+                <ScalarProperty Name="Tenant_Gender" ColumnName="Tenant_Gender" />
+                <ScalarProperty Name="Tenant_Username" ColumnName="Tenant_Username" />
+                <ScalarProperty Name="Tenant_Password" ColumnName="Tenant_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tenant_Auto">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Tenant_Auto">
+              <MappingFragment StoreEntitySet="Tenant_Auto">
+                <ScalarProperty Name="License_No" ColumnName="License_No" />
+                <ScalarProperty Name="Auto_Make" ColumnName="Auto_Make" />
+                <ScalarProperty Name="Auto_Model" ColumnName="Auto_Model" />
+                <ScalarProperty Name="Auto_Year" ColumnName="Auto_Year" />
+                <ScalarProperty Name="Auto_Color" ColumnName="Auto_Color" />
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tenant_Family">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Tenant_Family">
+              <MappingFragment StoreEntitySet="Tenant_Family">
+                <ScalarProperty Name="Family_SS" ColumnName="Family_SS" />
+                <ScalarProperty Name="Family_Name" ColumnName="Family_Name" />
+                <ScalarProperty Name="Spouse" ColumnName="Spouse" />
+                <ScalarProperty Name="Child" ColumnName="Child" />
+                <ScalarProperty Name="Divorced" ColumnName="Divorced" />
+                <ScalarProperty Name="Single" ColumnName="Single" />
+                <ScalarProperty Name="Family_Gender" ColumnName="Family_Gender" />
+                <ScalarProperty Name="Family_DOB" ColumnName="Family_DOB" />
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Testimonials">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.Testimonial">
+              <MappingFragment StoreEntitySet="Testimonial">
+                <ScalarProperty Name="Testimonial_ID" ColumnName="Testimonial_ID" />
+                <ScalarProperty Name="Testimonial_Date" ColumnName="Testimonial_Date" />
+                <ScalarProperty Name="Testimonial_Content" ColumnName="Testimonial_Content" />
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewRentals">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.ViewRental">
+              <MappingFragment StoreEntitySet="ViewRental">
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+                <ScalarProperty Name="Tenant_Name" ColumnName="Tenant_Name" />
+                <ScalarProperty Name="Tenant_DOB" ColumnName="Tenant_DOB" />
+                <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+                <ScalarProperty Name="Rental_Date" ColumnName="Rental_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTenantAutoes">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.ViewTenantAuto">
+              <MappingFragment StoreEntitySet="ViewTenantAuto">
+                <ScalarProperty Name="License_No" ColumnName="License_No" />
+                <ScalarProperty Name="Auto_Make" ColumnName="Auto_Make" />
+                <ScalarProperty Name="Auto_Model" ColumnName="Auto_Model" />
+                <ScalarProperty Name="Auto_Year" ColumnName="Auto_Year" />
+                <ScalarProperty Name="Auto_Color" ColumnName="Auto_Color" />
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTenantFamilies">
+            <EntityTypeMapping TypeName="TEAM4OARSModel.ViewTenantFamily">
+              <MappingFragment StoreEntitySet="ViewTenantFamily">
+                <ScalarProperty Name="Family_SS" ColumnName="Family_SS" />
+                <ScalarProperty Name="Family_Name" ColumnName="Family_Name" />
+                <ScalarProperty Name="Spouse" ColumnName="Spouse" />
+                <ScalarProperty Name="Child" ColumnName="Child" />
+                <ScalarProperty Name="Divorced" ColumnName="Divorced" />
+                <ScalarProperty Name="Single" ColumnName="Single" />
+                <ScalarProperty Name="Family_Gender" ColumnName="Family_Gender" />
+                <ScalarProperty Name="Family_DOB" ColumnName="Family_DOB" />
+                <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Lives_In" TypeName="TEAM4OARSModel.Lives_In" StoreEntitySet="Lives_In">
+            <EndProperty Name="Apartment">
+              <ScalarProperty Name="Apt_no" ColumnName="Apt_No" />
+            </EndProperty>
+            <EndProperty Name="Tenant">
+              <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

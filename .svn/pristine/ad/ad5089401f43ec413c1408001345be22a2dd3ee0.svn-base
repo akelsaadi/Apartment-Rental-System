@@ -1,0 +1,28 @@
+﻿@model IEnumerable<TEAM4OARS.Models.ViewTestimonialsResult>
+
+@{
+    ViewBag.Title = "LookupTestimonial";
+}
+
+<h2>Results</h2>
+<p>
+    @Html.ActionLink("Search","Testimonials","Home")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Testimonial_Content)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Testimonial_Content)
+        </td>
+
+    </tr>
+}
+
+</table>

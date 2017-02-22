@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewBag.Title = "Unauthorize";
+}
+
+<h1 class="text-danger">Acess Denied</h1>
+<h2 class="text-danger">You dont have access to this page.</h2>
+

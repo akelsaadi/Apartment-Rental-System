@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace TEAM4OARS.Controllers
+{
+    public class HomeController : Controller
+    {
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "TEAM4OARS Members";
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Contact Us";
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Testimonials()
+        {
+            ViewBag.Message = "Search a Testimonial";
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Chat()
+        {
+            ViewBag.Message = "Welcom to the Chat Room";
+            return View();
+        }
+
+        [Authorize (Roles ="Tenant")]
+        public ActionResult TenantDetail()
+        {
+            return View();
+        }
+
+        [Authorize (Roles ="Assistant")]
+        public ActionResult AssistantIndex()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Manager")]
+        public ActionResult ManagerIndex()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Supervisor")]
+        public ActionResult SupervisorIndex()
+        {
+            return View();
+        }
+    }
+}

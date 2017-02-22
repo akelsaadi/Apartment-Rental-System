@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb4897c4344a44d2beaee2fdd4f77283" Name="Diagram1">
+        <EntityTypeShape EntityType="TEAM4OARSModel.Apartment" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Complaint" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Own" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Rental" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Rental_Invoice" Width="1.5" PointX="8.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Staff" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Tenant" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Tenant_Auto" Width="1.5" PointX="6" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Tenant_Family" Width="1.5" PointX="6" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.Testimonial" Width="1.5" PointX="6" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.View_LeaseLength" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.View_Pending_Complaints" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.View_Rental" Width="1.5" PointX="8.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.View_Tenant" Width="1.5" PointX="8.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.View_VacantApt" Width="1.5" PointX="10.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Complaint__Apt_n__4AE30379" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Owns__Apt_No__4341E1B1" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Rental__Apt_no__3F7150CD" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Complaint__Renta__49EEDF40" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Owns__Rental_No__443605EA" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Owns__Tenant_SS__424DBD78" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Rental__Staff_nu__3E7D2C94" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Rental_In__Renta__47127295" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Tenant_Au__Tenan__38C4533E" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Tenant_Fa__Tenan__3BA0BFE9" ManuallyRouted="false" />
+        <AssociationConnector Association="TEAM4OARSModel.FK__Testimoni__Tenan__4DBF7024" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.View_List_Payments" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="TEAM4OARSModel.View_StaffRental_Details" Width="1.5" PointX="11.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

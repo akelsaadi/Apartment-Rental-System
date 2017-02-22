@@ -1,0 +1,26 @@
+﻿<!--Garrett Bellomy
+    1128654
+    COSC 5351
+    Spring 2016-->
+
+@model IEnumerable<TEAM4OARS.Models.View_List_Payments>
+
+@{
+    ViewBag.Title = "Payment List Search";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("ListPaymentsResult", "Home", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="form-group">
+                <input type="search" class="form-control" style="max-width:450px" name="number" placeholder="Enter Apt Number to Search" />
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+    </div>
+}

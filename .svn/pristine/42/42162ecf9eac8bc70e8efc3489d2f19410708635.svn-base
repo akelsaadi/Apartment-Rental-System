@@ -1,0 +1,57 @@
+﻿@model IEnumerable<TEAM4OARS.Models.View_List_Payments>
+
+@{
+    ViewBag.Title = "Payment List";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental_No)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.apt_no)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.invoice_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CC_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoice_due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CC_amt)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apt_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoice_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CC_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoice_due)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CC_amt)
+        </td>
+    </tr>
+}
+
+</table>
+<p>@Html.ActionLink("Search", "ListPayments", "Home")</p>

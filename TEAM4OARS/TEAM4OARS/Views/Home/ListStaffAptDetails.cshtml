@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TEAM4OARS.Models.StaffAptDetailsViewModel>
+
+@{
+    ViewBag.Title = "Staff apartment details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    
+    <table class="table table-striped">
+        <tr>
+            <th>Staff no.</th>
+            <th>Staff name</th>
+            <th>Staff position</th>
+            <th>Apt. nos.</th>
+        </tr>
+        @foreach(var s in Model) {
+            if (!s.aptNos.Any()) {
+                continue;
+            }
+            <tr>
+                <td>@s.staff.Staff_number</td>
+                <td>@s.staff.First_Name @s.staff.Last_Name</td>
+                <td>@s.staff.Position</td>
+                <td>@foreach (int a in s.aptNos) {
+                    @a <br />
+                }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

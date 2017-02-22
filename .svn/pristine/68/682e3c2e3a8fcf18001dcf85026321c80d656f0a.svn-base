@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TEAM4OARS.Models.View_VacantApt>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_Rent_Amt)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayFor(model => item.Apt_no)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_Rent_Amt)
+        </td>
+    </tr>
+}
+
+</table>

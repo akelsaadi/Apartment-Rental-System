@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TEAM4OARS.Models.Complaint>
+
+@{
+    ViewBag.Title = "UpdateComplaint";
+}
+
+<h2>UpdateComplaint</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Complaint_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental_Complaint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_Complaint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apartment.Apt_Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental.Rental_Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Complaint_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental_Complaint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_Complaint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apartment.Apt_Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental.Rental_Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit","UpdateComplaint", new { id=item.Complaint_No }) |
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewBag.Title = "Staff Home Page";
+}
+
+<h1>Staff Home Page</h1>
+<h2>Welcome @User.Identity.Name your Role is @Session["Role"]</h2>
+

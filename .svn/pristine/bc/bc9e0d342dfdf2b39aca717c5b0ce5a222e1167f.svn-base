@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+namespace TEAM4OARS.Models
+{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * Model Class for Pay Rent
+    */
+    public class ViewPayRent
+    {
+        public IEnumerable<Models.ViewRentalRates> rates { get; set; }
+
+        public int Invoice_No { get; set; }
+        public string Tenant_Name { get; set; }
+        public int Tenant_SS { get; set; }
+        public int Apt_no { get; set; }
+        [Display(Name = "Invoice Date")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        public Nullable<System.DateTime> Invoice_Date { get; set; }
+
+        [Display(Name = "Amount Due")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
+        public Nullable<decimal> Invoice_Due { get; set; }
+
+        [Display(Name ="Card Number")]
+        [Required(ErrorMessage ="Credit Card Number Required")]
+        [DataType(DataType.CreditCard,ErrorMessage ="Invalid Format")]
+        public string CC_No { get; set; }
+
+        [Display(Name = "Card Type")]
+        [Required(ErrorMessage = "Credit Card Type Required")]
+        public string CC_Type { get; set; }
+
+        [Display(Name = "Expiration Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Required(ErrorMessage = "Expiration Date Required")]
+        public Nullable<System.DateTime> CC_Exp_Date { get; set; }
+
+        [Display(Name = "Amount Paid")]
+        [Required(ErrorMessage = "Amount Required")]
+        public Nullable<decimal> CC_Amt { get; set; }
+
+        [Display(Name = "Rental #")]
+        public Nullable<int> Rental_No { get; set; }
+    }
+}

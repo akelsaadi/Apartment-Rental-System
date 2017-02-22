@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+namespace TEAM4OARS.Models
+{
+    public class ViewTestimonialsResult
+    {
+        [Display(Name ="Testimonial ID")]
+        public int Testimonial_Id { get; set; }
+
+        [Display(Name ="Testimonial")]
+        public string Testimonial_Content { get; set; }
+    }
+}

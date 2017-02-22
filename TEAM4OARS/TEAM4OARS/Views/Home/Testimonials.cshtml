@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TEAM4OARS.Models.Testimonial>
+@{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * Testimonials View and search
+    */
+    ViewBag.Title = "Testimonials";
+    int active = 0;
+    var activeClass = "active item";
+}
+
+<div class="container content">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="testimonials">
+                <div id="testimonialCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+                    <div class="carousel-inner" role="listbox">
+                        @foreach (var item in Model)
+                        {
+                            if(active>0)
+                            {
+                                activeClass = "item";
+                            }
+                            <div class="@activeClass">
+                                <blockquote><p>@Html.DisplayFor(s=>item.Testimonial_Content)</p></blockquote>
+                                <div class="carousel-info">
+                                    <img alt="" src="http://hhsolutions.in/images/icon-conversation.png" class="pull-left">
+                                    <div class="pull-left">
+                                        <span class="testimonials-name">Tenant</span>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            if(active==0)
+                            {
+                                active= 1;
+                            }
+                        }
+
+                    </div>
+                    <a class="left carousel-control" href="#testimonialCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#testimonialCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    @using (Html.BeginForm("TestimonialsResults", "Home", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-md-4 text-center">
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="form-group">
+                    <input type="search" class="form-control" style="max-width:450px" name="keyword" placeholder="Enter Keyword to Search" />
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+

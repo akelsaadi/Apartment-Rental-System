@@ -1,0 +1,98 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using TEAM4OARS.Common;
+using TEAM4OARS.Models;
+
+namespace TEAM4OARS.Hubs
+{
+    public class ChatHub : Hub
+    {
+        #region Variable and Instantiations
+        static List<UserDetail> ConnectedUsers = new List<UserDetail>();
+        static List<MessageDetail> CurrentMesage = new List<MessageDetail>();
+
+        #endregion
+
+        #region Methods
+
+        public void Connect(string userName,string role)
+        {
+            var id = Context.ConnectionId;
+            if(role=="Assistant")
+            {
+                Groups.Add(id, "CustSvc");
+            }
+
+            if(ConnectedUsers.Count(x=>x.ConnectionId==id)==0)
+            {
+                ConnectedUsers.Add(new UserDetail { ConnectionId = id, UserName = userName });
+
+                Clients.Caller.onConnected(id, userName,ConnectedUsers, CurrentMesage);
+
+                Clients.AllExcept(id).onNewUserConnected(id, userName);
+            }
+        }
+
+        public void Welcome()
+        {
+            string userName = "Customer Service";
+            string message = "Welcome to TEAM4OARS Chat Room";
+            Clients.All.introduce(userName,message);
+        }
+
+        public void SendCustomerSvc(string userName, string message)
+        {
+            string id = Context.ConnectionId;
+            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == id);
+            Clients.Group("CustSvc").sendMsgCustSvc(id,fromUser.UserName,message);
+            Clients.Caller.sendMsgCustomer(fromUser.UserName, message);
+        }
+
+        public void SendPrivate(string toUserId, string message)
+        {
+            string fromUserId = Context.ConnectionId;
+            var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
+            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
+
+            if (toUser != null && fromUser != null)
+            {
+                Clients.Client(toUserId).sendMsgCustomer(fromUser.UserName, message);
+
+                Clients.Caller.sendPrivate(toUserId, fromUser.UserName, message);
+            }
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            if(item!=null)
+            {
+                //Delete User from List
+                
+                var id = Context.ConnectionId;
+                ConnectedUsers.RemoveAll(x => x.ConnectionId ==id);
+                Clients.All.onUserDisconnected(id, item.UserName);
+            }
+            return base.OnDisconnected(stopCalled);
+        }
+        #endregion
+
+        #region Privte Methods
+        private void addMsgInCache(string userName,string message)
+        {
+            CurrentMesage.Add(new MessageDetail { UserName = userName, Message = message });
+
+            if(CurrentMesage.Count>100)
+            {
+                CurrentMesage.RemoveAt(0);
+            }
+        }
+
+        #endregion
+    }
+
+}

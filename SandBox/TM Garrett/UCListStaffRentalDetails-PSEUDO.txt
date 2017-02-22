@@ -1,0 +1,8 @@
+UCListStaffRentalDetails()
+{
+	foreach(staff_member in Staff){
+		Display("Name: " + staff_member.Name);
+		Display("Position: " + staff_member.Position);
+		Display("Number of Rentals: " + staff_member.NoRentals);
+	}
+}

@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TEAM4OARSModelStoreContainer" CdmEntityContainer="TEAM4OARSEntities">
+    <EntitySetMapping Name="Apartments">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Apartment">
+        <MappingFragment StoreEntitySet="Apartment">
+          <ScalarProperty Name="Apt_no" ColumnName="Apt_no" />
+          <ScalarProperty Name="Apt_Type" ColumnName="Apt_Type" />
+          <ScalarProperty Name="Apt_Status" ColumnName="Apt_Status" />
+          <ScalarProperty Name="Apt_Utility" ColumnName="Apt_Utility" />
+          <ScalarProperty Name="Apt_Deposit_Amt" ColumnName="Apt_Deposit_Amt" />
+          <ScalarProperty Name="Apt_Rent_Amt" ColumnName="Apt_Rent_Amt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Complaints">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Complaint">
+        <MappingFragment StoreEntitySet="Complaint">
+          <ScalarProperty Name="Complaint_No" ColumnName="Complaint_No" />
+          <ScalarProperty Name="Complaint_Date" ColumnName="Complaint_Date" />
+          <ScalarProperty Name="Rental_Complaint" ColumnName="Rental_Complaint" />
+          <ScalarProperty Name="Apt_Complaint" ColumnName="Apt_Complaint" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+          <ScalarProperty Name="Apt_no" ColumnName="Apt_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Owns">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Own">
+        <MappingFragment StoreEntitySet="Owns">
+          <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+          <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+          <ScalarProperty Name="Apt_No" ColumnName="Apt_No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rentals">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Rental">
+        <MappingFragment StoreEntitySet="Rental">
+          <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+          <ScalarProperty Name="Rental_Date" ColumnName="Rental_Date" />
+          <ScalarProperty Name="Rental_Status" ColumnName="Rental_Status" />
+          <ScalarProperty Name="Cancel_Date" ColumnName="Cancel_Date" />
+          <ScalarProperty Name="Lease_Type" ColumnName="Lease_Type" />
+          <ScalarProperty Name="Lease_Start" ColumnName="Lease_Start" />
+          <ScalarProperty Name="Lease_End" ColumnName="Lease_End" />
+          <ScalarProperty Name="Renewal_Date" ColumnName="Renewal_Date" />
+          <ScalarProperty Name="Staff_number" ColumnName="Staff_number" />
+          <ScalarProperty Name="Apt_no" ColumnName="Apt_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rental_Invoice">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Rental_Invoice">
+        <MappingFragment StoreEntitySet="Rental_Invoice">
+          <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
+          <ScalarProperty Name="Invoice_Date" ColumnName="Invoice_Date" />
+          <ScalarProperty Name="Invoice_Due" ColumnName="Invoice_Due" />
+          <ScalarProperty Name="CC_No" ColumnName="CC_No" />
+          <ScalarProperty Name="CC_Type" ColumnName="CC_Type" />
+          <ScalarProperty Name="CC_Exp_Date" ColumnName="CC_Exp_Date" />
+          <ScalarProperty Name="CC_Amt" ColumnName="CC_Amt" />
+          <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Staffs">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Staff">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="Staff_number" ColumnName="Staff_number" />
+          <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tenants">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Tenant">
+        <MappingFragment StoreEntitySet="Tenant">
+          <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+          <ScalarProperty Name="Tenant_Name" ColumnName="Tenant_Name" />
+          <ScalarProperty Name="Tenant_DOB" ColumnName="Tenant_DOB" />
+          <ScalarProperty Name="Tenant_Marital" ColumnName="Tenant_Marital" />
+          <ScalarProperty Name="Work_Phone" ColumnName="Work_Phone" />
+          <ScalarProperty Name="Home_Phone" ColumnName="Home_Phone" />
+          <ScalarProperty Name="Employer" ColumnName="Employer" />
+          <ScalarProperty Name="Tenant_Gender" ColumnName="Tenant_Gender" />
+          <ScalarProperty Name="Tenant_Username" ColumnName="Tenant_Username" />
+          <ScalarProperty Name="Tenant_Password" ColumnName="Tenant_Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tenant_Auto">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Tenant_Auto">
+        <MappingFragment StoreEntitySet="Tenant_Auto">
+          <ScalarProperty Name="License_No" ColumnName="License_No" />
+          <ScalarProperty Name="Auto_Make" ColumnName="Auto_Make" />
+          <ScalarProperty Name="Auto_Model" ColumnName="Auto_Model" />
+          <ScalarProperty Name="Auto_Year" ColumnName="Auto_Year" />
+          <ScalarProperty Name="Auto_Color" ColumnName="Auto_Color" />
+          <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tenant_Family">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Tenant_Family">
+        <MappingFragment StoreEntitySet="Tenant_Family">
+          <ScalarProperty Name="Family_SS" ColumnName="Family_SS" />
+          <ScalarProperty Name="Family_Name" ColumnName="Family_Name" />
+          <ScalarProperty Name="Spouse" ColumnName="Spouse" />
+          <ScalarProperty Name="Child" ColumnName="Child" />
+          <ScalarProperty Name="Divorced" ColumnName="Divorced" />
+          <ScalarProperty Name="Single" ColumnName="Single" />
+          <ScalarProperty Name="Family_Gender" ColumnName="Family_Gender" />
+          <ScalarProperty Name="Family_DOB" ColumnName="Family_DOB" />
+          <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Testimonials">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.Testimonial">
+        <MappingFragment StoreEntitySet="Testimonial">
+          <ScalarProperty Name="Testimonial_ID" ColumnName="Testimonial_ID" />
+          <ScalarProperty Name="Testimonial_Date" ColumnName="Testimonial_Date" />
+          <ScalarProperty Name="Testimonial_Content" ColumnName="Testimonial_Content" />
+          <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_LeaseLength">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.View_LeaseLength">
+        <MappingFragment StoreEntitySet="View_LeaseLength">
+          <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+          <ScalarProperty Name="Lease_Start" ColumnName="Lease_Start" />
+          <ScalarProperty Name="Lease_End" ColumnName="Lease_End" />
+          <ScalarProperty Name="Lease_Length__Days_" ColumnName="Lease Length (Days)" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Pending_Complaints">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.View_Pending_Complaints">
+        <MappingFragment StoreEntitySet="View_Pending_Complaints">
+          <ScalarProperty Name="Complaint_No" ColumnName="Complaint_No" />
+          <ScalarProperty Name="Apt_no" ColumnName="Apt_no" />
+          <ScalarProperty Name="Apt_type" ColumnName="Apt_type" />
+          <ScalarProperty Name="Description_Complaint" ColumnName="Description_Complaint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Rental">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.View_Rental">
+        <MappingFragment StoreEntitySet="View_Rental">
+          <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+          <ScalarProperty Name="Rental_Date" ColumnName="Rental_Date" />
+          <ScalarProperty Name="Apt_no" ColumnName="Apt_no" />
+          <ScalarProperty Name="Apt_type" ColumnName="Apt_type" />
+          <ScalarProperty Name="Apt_Deposit_Amt" ColumnName="Apt_Deposit_Amt" />
+          <ScalarProperty Name="Lease_Type" ColumnName="Lease_Type" />
+          <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+          <ScalarProperty Name="Tenant_Name" ColumnName="Tenant_Name" />
+          <ScalarProperty Name="Tenant_DOB" ColumnName="Tenant_DOB" />
+          <ScalarProperty Name="Work_Phone" ColumnName="Work_Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Tenant">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.View_Tenant">
+        <MappingFragment StoreEntitySet="View_Tenant">
+          <ScalarProperty Name="Tenant_SS" ColumnName="Tenant_SS" />
+          <ScalarProperty Name="Tenant_Name" ColumnName="Tenant_Name" />
+          <ScalarProperty Name="Tenant_DOB" ColumnName="Tenant_DOB" />
+          <ScalarProperty Name="Tenant_Marital" ColumnName="Tenant_Marital" />
+          <ScalarProperty Name="Work_Phone" ColumnName="Work_Phone" />
+          <ScalarProperty Name="Home_Phone" ColumnName="Home_Phone" />
+          <ScalarProperty Name="Employer" ColumnName="Employer" />
+          <ScalarProperty Name="Tenant_Gender" ColumnName="Tenant_Gender" />
+          <ScalarProperty Name="apt_no" ColumnName="apt_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_VacantApt">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.View_VacantApt">
+        <MappingFragment StoreEntitySet="View_VacantApt">
+          <ScalarProperty Name="Apt_no" ColumnName="Apt_no" />
+          <ScalarProperty Name="Apt_Type" ColumnName="Apt_Type" />
+          <ScalarProperty Name="Apt_Rent_Amt" ColumnName="Apt_Rent_Amt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_findTestimonial" FunctionName="TEAM4OARSModel.Store.sp_findTestimonial">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TEAM4OARSModel.sp_findTestimonial_Result">
+          <ScalarProperty Name="Testimonial_id" ColumnName="Testimonial_id" />
+          <ScalarProperty Name="Testimonial_Content" ColumnName="Testimonial_Content" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="View_List_Payments">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.View_List_Payments">
+        <MappingFragment StoreEntitySet="View_List_Payments">
+          <ScalarProperty Name="CC_amt" ColumnName="CC_amt" />
+          <ScalarProperty Name="invoice_due" ColumnName="invoice_due" />
+          <ScalarProperty Name="CC_Type" ColumnName="CC_Type" />
+          <ScalarProperty Name="invoice_Date" ColumnName="invoice_Date" />
+          <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
+          <ScalarProperty Name="apt_no" ColumnName="apt_no" />
+          <ScalarProperty Name="Rental_No" ColumnName="Rental_No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_StaffRental_Details">
+      <EntityTypeMapping TypeName="TEAM4OARSModel.View_StaffRental_Details">
+        <MappingFragment StoreEntitySet="View_StaffRental_Details">
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+          <ScalarProperty Name="First_name" ColumnName="First_name" />
+          <ScalarProperty Name="Rental_Count" ColumnName="Rental_Count" />
+          <ScalarProperty Name="Staff_number" ColumnName="Staff_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

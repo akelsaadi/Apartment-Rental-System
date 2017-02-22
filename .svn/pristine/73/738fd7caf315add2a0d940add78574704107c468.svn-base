@@ -1,0 +1,7 @@
+﻿@using TEAM4OARS
+@using TEAM4OARS.Models
+@using TEAM4OARS.ViewModels.Account
+@using TEAM4OARS.ViewModels.Manage
+@using Microsoft.AspNet.Identity
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@inject Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration TelemetryConfiguration

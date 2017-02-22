@@ -1,0 +1,37 @@
+﻿@{
+    var menus = new[]
+    {
+        new {LinkText="Home",ActionName="Index",Controller="Home",Roles="All"},
+        new {LinkText="About",ActionName="About",Controller="Home",Roles="All"},
+        new {LinkText="Contact Us",ActionName="Contact",Controller="Home",Roles="All"},
+        new {LinkText="Testimonials",ActionName="Testimonials",Controller="Home",Roles="All"},
+        new {LinkText="Chat",ActionName="Chat",Controller="Home",Roles="Tenant"},
+    };
+
+    <ul class="nav navbar-nav">
+        @if (Request.IsAuthenticated)
+        {
+            TEAM4OARSRoleProvider userRoles = new TEAM4OARSRoleProvider();
+            String[] roles = userRoles.GetRolesForUser(User.Identity.Name);
+            var links = from item in menus
+                        where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries).Any(x => roles.Contains(x) || x == "All")
+                        select item;
+            foreach(var link in links)
+            {
+                @:<li>@Html.ActionLink(link.LinkText,link.ActionName,link.Controller)</li>
+            }
+        }
+        else
+        {
+            var links = from item in menus
+                        where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries).Any(x => new String[] { "All", "Anonymous" }.Contains(x))
+                        select item;
+
+            foreach (var link in links)
+            {
+                @:<li>@Html.ActionLink(link.LinkText, link.ActionName, link.Controller)</li>
+            }
+
+}
+    </ul>
+}

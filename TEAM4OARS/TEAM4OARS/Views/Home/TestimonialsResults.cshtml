@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TEAM4OARS.Models.ViewTestimonialsResult>
+
+@{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * View to display testimonial search results
+    */
+    ViewBag.Title = "LookupTestimonial";
+}
+
+<h2>Results</h2>
+<p>
+    @Html.ActionLink("Search","Testimonials","Home")
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Testimonial_Content)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Testimonial_Content)
+        </td>
+
+    </tr>
+}
+
+</table>

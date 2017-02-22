@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TEAM4OARS.Models
+{
+    public class ViewTestimonialsResult
+    {
+        public int Testimonial_Id { get; set; }
+        public string Testimonial_Content { get; set; }
+    }
+}

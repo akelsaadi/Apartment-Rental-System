@@ -1,0 +1,78 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TEAM4OARS.Common;
+
+namespace TEAM4OARS.Controllers
+{
+    public class HomeController : Controller
+    { 
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "TEAM4OARS Members";
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Contact Us";
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Testimonials()
+        {
+            ViewBag.Message = "Search a Testimonial";
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Chat()
+        {
+            ViewBag.Message = "Welcome to the Chat Room";
+            return View();
+        }
+
+        [TEAM4OARSAuthorize (Roles ="Tenant")]
+        public ActionResult TenantDetails()
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var tenant = dc.Tenants.Where(a => a.Tenant_Username.Equals(User.Identity.Name)).FirstOrDefault();
+                var viewTenant = from s in dc.View_Tenant
+                                 where s.Tenant_SS==tenant.Tenant_SS
+                                 select s;
+
+                return View(viewTenant.ToList());
+            }
+        }
+
+        [TEAM4OARSAuthorize (Roles ="Assistant")]
+        public ActionResult AssistantIndex()
+        {
+            return View();
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Manager")]
+        public ActionResult ManagerIndex()
+        {
+            return View();
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Supervisor")]
+        public ActionResult SupervisorIndex()
+        {
+            return View();
+
+        }
+    }
+}

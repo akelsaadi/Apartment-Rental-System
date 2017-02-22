@@ -1,0 +1,47 @@
+﻿@model TEAM4OARS.Models.Staff
+
+@{
+    ViewBag.Title = "Staff Login Portal";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+{
+    //this is to create form tag
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    if(ViewBag.Message!=null)
+    {
+        <div style="border:1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+
+    <table>
+        <tr>
+            <td>@Html.LabelFor(a=>a.Username)</td>
+            <td>@Html.TextAreaFor(a=>a.Username)</td>
+            <td>@Html.ValidationMessageFor(a=>a.Username)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(a=>a.Password)</td>
+            <td>@Html.PasswordFor(a => a.Password)</td>
+            <td>@Html.ValidationMessageFor(a=>a.Password)</td>
+        </tr>
+        <tr>
+            <td><p class="text-danger">@Html.ValidationMessage("Login Error")</p></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Login" />
+            </td>
+        </tr>
+    </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

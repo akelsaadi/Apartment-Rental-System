@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Live Chat";
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/ui/jquery.ui.widget.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.resizable.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.dialog.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.core.js"></script>
+    <script src="~/Scripts/chatRoom.js"></script>
+}
+<body onload="onChatLoad('@ViewBag.Role')">
+    <div class="row">
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-center">
+            <h1>@ViewData["Message"]</h1>
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+    </div>
+    <div id="divContainer">
+        <div id="visitor" class="login">
+            <div id="divnickName">
+                Name: <input type="text" id="userName" />
+            </div>
+            <div id="divchatBtn">
+                <input id="enterChat" type="button" value="Start Chat" />
+            </div>
+        </div>
+
+        <div id="user" class="login">
+            <div id="divnickName">
+                <input type="text" id="validUserName" disabled="disabled" value="@User.Identity.Name" />
+            </div>
+            <div id="divchatBtn">
+                <input id="startChat" type="button" value="Start Chat" />
+            </div>
+        </div>
+
+        <div id="customerSvcChat" class="chatRoom">
+            <div class="title">
+                Welcome @User.Identity.Name
+            </div>
+            <div class="chatContent">
+                <div id="divUsers" class="users">
+                </div>
+            </div>
+        </div>
+
+        <div id="liveChat" class="chat">
+            <div class="title">
+                Live Chat
+            </div>
+            <div class="chatContent">
+                <div id="livechatWindow" class="chatWindow">
+                </div>
+            </div>
+            <div class="messageBar">
+                <input class="textbox" type="text" id="liveChatMsg" />
+                <input type="button" id="liveChatSend" value="Send" class="btn-success" />
+            </div>
+        </div>
+        <input type="hidden" id="hdId" />
+        <input type="hidden" id="hdUsername" />
+        <input type="hidden" id="userRole" />
+        <input type="hidden" id="chatHub" />
+    </div>
+</body>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TEAM4OARS.Models.Rental_Invoice>
+
+@{
+    ViewBag.Title = "ListPayments";
+}
+
+<h2>ListPayments</h2>
+
+<p>
+    @using (Html.BeginForm("ListPayments","Home",FormMethod.Get))
+    {
+        <p>
+            @Html.TextBox("SearchString") <input type="submit" value="Search" />
+        </p>
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CC_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CC_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CC_Exp_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CC_Amt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental.Rental_Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Due)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CC_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CC_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CC_Exp_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CC_Amt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental.Rental_Status)
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,88 @@
+﻿<!--Garrett Bellomy
+    1128654
+    COSC 5351
+    Spring 2016-->
+
+@model IEnumerable<TEAM4OARS.Models.View_Rental>
+
+@{
+    ViewBag.Title = "Rental Agreement";
+}
+
+<h2>Rental Agreement</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_Deposit_Amt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lease_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenant_SS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenant_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Work_Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenant_DOB)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_Deposit_Amt)
+        </td>
+        <td>
+            @Html.RadioButtonFor(modelItem => item.Lease_Type, "One", new { id = "one",disabled="disabled" })
+            @Html.Label("one","One Year")
+            <br />
+
+            @Html.RadioButtonFor(modelItem => item.Lease_Type, "Six", new { id = "six", disabled = "disabled" })
+            @Html.Label("six", "Six Months")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant_SS)
+        </td>      
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant_Name)
+        </td>      
+        <td>
+            @Html.DisplayFor(modelItem => item.Work_Phone)
+        </td>      
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant_DOB)
+        </td>      
+    </tr>
+}
+
+</table>

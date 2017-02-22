@@ -1,0 +1,148 @@
+-- fn: TEAM4OARS.sql 
+
+-- SQL COMMENTED SQL COMMANDS
+
+DROP TABLE Complaint;
+DROP TABLE Lives_In;
+DROP TABLE Owns;
+DROP TABLE Rental_Invoice;
+DROP TABLE Staff;
+DROP TABLE Tenant_Family;
+DROP TABLE Tenant_Auto;
+DROP TABLE Testimonial;
+
+DROP TABLE Rental;
+DROP TABLE Apartment;
+DROP TABLE Tenant;
+
+CREATE TABLE Staff (
+    Staff_number INT          NOT NULL,
+    First_Name   VARCHAR (50) NULL,
+    Last_Name    VARCHAR (50) NULL,
+    Position     VARCHAR (50) NULL,
+    Gender       NCHAR (10)   NULL,
+    DOB          DATETIME     NULL,
+    Salary       REAL         NULL,
+    Username     NCHAR (10)   NULL,
+    Password     NCHAR (10)   NULL,
+    PRIMARY KEY (Staff_number)
+);
+
+
+CREATE TABLE Tenant (
+    Tenant_SS       INT       NOT NULL,
+    Tenant_Name     CHAR (30) NULL,
+    Tenant_DOB      DATETIME  NULL,
+    Tenant_Marital  CHAR (30) NULL,
+    Work_Phone      INT       NULL,
+    Home_Phone      INT       NULL,
+    Employer        CHAR (30) NULL,
+    Tenant_Gender   CHAR (30) NULL,
+    Tenant_Username CHAR (30) NULL,
+    Tenant_Password CHAR (30) NULL,
+    PRIMARY KEY (Tenant_SS)
+);
+
+CREATE TABLE Apartment (
+    Apt_no          INT       NOT NULL,
+    Apt_Type        CHAR (30) NULL,
+    Apt_Status      CHAR (30) NULL,
+    Apt_Utility     CHAR (30) NULL,
+    Apt_Deposit_Amt REAL      NULL,
+    Apt_Rent_Amt    REAL      NULL,
+    PRIMARY KEY  (Apt_no )
+);
+
+
+CREATE TABLE Lives_In (
+    Apt_No    INT NOT NULL,
+    Tenant_SS INT NOT NULL,
+    PRIMARY KEY  (Apt_No, Tenant_SS),
+    FOREIGN KEY (Apt_No) REFERENCES Apartment (Apt_no),
+    FOREIGN KEY (Tenant_SS) REFERENCES Tenant (Tenant_SS)
+);
+
+
+CREATE TABLE Tenant_Auto (
+    License_No CHAR (7)  NOT NULL,
+    Auto_Make  CHAR (30) NULL,
+    Auto_Model CHAR (30) NULL,
+    Auto_Year  INT       NULL,
+    Auto_Color CHAR (30) NULL,
+    Tenant_SS  INT       NULL,
+    PRIMARY KEY (License_No),
+    FOREIGN KEY (Tenant_SS) REFERENCES Tenant (Tenant_SS)
+);
+
+
+CREATE TABLE Tenant_Family (
+    Family_SS     INT       NOT NULL,
+    Family_Name   CHAR (30) NULL,
+    Spouse        CHAR (30) NULL,
+    Child         CHAR (30) NULL,
+    Divorced      CHAR (30) NULL,
+    Single        CHAR (30) NULL,
+    Family_Gender CHAR (30) NULL,
+    Family_DOB    DATETIME  NULL,
+    Tenant_SS     INT       NULL,
+    PRIMARY KEY (Family_SS),
+    FOREIGN KEY (Tenant_SS) REFERENCES Tenant (Tenant_SS)
+);
+
+
+CREATE TABLE Rental (
+    Rental_No     INT       NOT NULL,
+    Rental_Date   DATETIME  NULL,
+    Rental_Status CHAR (30) NULL,
+    Cancel_Date   DATETIME  NULL,
+    Lease_Type    CHAR (30) NULL,
+    Lease_Start   DATETIME  NULL,
+    Lease_End     DATETIME  NULL,
+    Renewal_Date  DATETIME  NULL,
+    PRIMARY KEY (Rental_No)
+);
+
+
+CREATE TABLE Owns (
+    Tenant_SS INT NOT NULL,
+    Rental_No INT NOT NULL,
+    PRIMARY KEY (Tenant_SS, Rental_No),
+    FOREIGN KEY (Tenant_SS) REFERENCES Tenant (Tenant_SS),
+    FOREIGN KEY (Rental_No) REFERENCES Rental (Rental_No)
+);
+
+
+CREATE TABLE Rental_Invoice (
+    Invoice_No   INT       NOT NULL,
+    Invoice_Date DATETIME  NULL,
+    Invoice_Due  DATETIME  NULL,
+    CC_No        INT       NULL,
+    CC_Type      CHAR (30) NULL,
+    CC_Exp_Date  DATETIME  NULL,
+    CC_Amt       REAL      NULL,
+    Rental_No    INT       NULL,
+    PRIMARY KEY (Invoice_No),
+    FOREIGN KEY (Rental_No) REFERENCES Rental (Rental_No)
+);
+
+CREATE TABLE Complaint (
+    Complaint_No     INT        NOT NULL,
+    Complaint_Date   DATETIME   NULL,
+    Rental_Complaint CHAR (160) NULL,
+    Apt_Complaint    CHAR (160) NULL,
+    Status           CHAR (30)  NULL,
+    Tenant_SS        INT        NULL,
+    PRIMARY KEY  (Complaint_No ),
+    FOREIGN KEY (Tenant_SS) REFERENCES Tenant (Tenant_SS)
+);
+
+
+CREATE TABLE Testimonial (
+    Testimonial_ID      INT        NOT NULL,
+    Testimonial_Date    DATETIME   NULL,
+    Testimonial_Content CHAR (256) NULL,
+    Tenant_SS           INT        NULL,
+    PRIMARY KEY (Testimonial_ID ),
+    FOREIGN KEY (Tenant_SS) REFERENCES Tenant (Tenant_SS)
+);
+

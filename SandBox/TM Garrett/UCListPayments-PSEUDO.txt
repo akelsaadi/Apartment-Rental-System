@@ -1,0 +1,20 @@
+UCListPayments(Apartment apt, Tenant tenant)
+{
+	// Rental No.
+	// list of Invoice#
+	// Invoice Date
+	// Payment Type
+	
+	Display("Rental " + apt.RentalNo);
+	
+	invoiceList = new Table(apt.Invoice.size(), 3);
+	
+	for (i = 0; i < apt.Invoice.size(); i++)
+	{
+		invoiceList.add(i, 0, apt.Invoice.No);
+		invoiceList.add(i, 1, apt.Invoice.Date);
+		invoiceList.add(i, 2, apt.Invoice.Payment);
+	}
+	
+	invoiceList.show();
+}

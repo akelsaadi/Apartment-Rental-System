@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TEAM4OARS.Models.AutoMakeViewModel>
+
+@{
+    ViewBag.Title = "Auto Make List";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Auto Make</th>
+        <th>Count</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@item.autoMake</td>
+        <td>@item.count</td>
+    </tr>
+}
+
+</table>

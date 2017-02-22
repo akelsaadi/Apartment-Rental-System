@@ -1,0 +1,34 @@
+﻿@model List<TEAM4OARS.Models.View_Tenant>
+@{
+    ViewBag.Title = "Tenant Detail";
+}
+
+<h2>Tenant Details</h2>
+<div>
+    <h4>Tenant Information</h4>
+    <table>
+    @foreach(var tenant in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(t=>tenant.Tenant_SS)
+            </td>
+            <td>
+                @Html.DisplayFor(t=>tenant.Tenant_Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(t => tenant.Tenant_Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(t => tenant.Tenant_Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(t => tenant.Tenant_Name)
+            </td>
+        </tr>
+    }
+    </table>
+</div>

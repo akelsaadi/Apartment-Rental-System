@@ -1,0 +1,7 @@
+﻿
+@{
+    ViewBag.Title = "SupervisorIndex";
+}
+
+<h2>SupervisorIndex</h2>
+

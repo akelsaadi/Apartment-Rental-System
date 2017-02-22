@@ -1,0 +1,68 @@
+﻿@model IEnumerable<TEAM4OARS.Models.Testimonial>
+@{
+    ViewBag.Title = "Testimonials";
+}
+
+<div class="container content">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="testimonials">
+                <div id="testimonialCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="active item">
+                            <blockquote><p>Denim you probably haven't heard of. Lorem ipsum dolor met consectetur adipisicing sit amet, consectetur adipisicing elit, of them jean shorts sed magna aliqua. Lorem ipsum dolor met.</p></blockquote>
+                            <div class="carousel-info">
+                                <img alt="" src="http://hhsolutions.in/images/icon-conversation.png" class="pull-left">
+                                <div class="pull-left">
+                                    <span class="testimonials-name">Lina Mars</span>
+                                    <span class="testimonials-post">Commercial Director</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <blockquote><p>Denim you probably haven't heard of. Lorem ipsum dolor met consectetur adipisicing sit amet, consectetur adipisicing elit, of them jean shorts sed magna aliqua. Lorem ipsum dolor met.</p></blockquote>
+                            <div class="carousel-info">
+                                <img alt="" src="http://hhsolutions.in/images/icon-conversation.png" class="pull-right">
+                                <div class="pull-right">
+                                    <span class="testimonials-name">Lina Mars</span>
+                                    <span class="testimonials-post">Commercial Director</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <blockquote><p>Denim you probably haven't heard of. Lorem ipsum dolor met consectetur adipisicing sit amet, consectetur adipisicing elit, of them jean shorts sed magna aliqua. Lorem ipsum dolor met.</p></blockquote>
+                            <div class="carousel-info">
+                                <img alt="" src="http://hhsolutions.in/images/icon-conversation.png" class="pull-left">
+                                <div class="pull-left">
+                                    <span class="testimonials-name">Test Name</span>
+                                    <span class="testimonials-post">CEO </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#testimonialCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#testimonialCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        @using (Html.BeginForm("TestimonialsResults", "Home", FormMethod.Get))
+        {
+            <p>
+            Keyword: @Html.TextBox("keyword")<br />
+            <input type="submit" name="name" value="Search" />
+                </p>
+        }
+     </p>
+</div>
+

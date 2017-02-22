@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * Partial View that handles displaying login and logout action links depending on user logged in or not
+    */
+    using (Html.BeginForm("Logout", "TEAM4OARSAccount", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        @if(Session["Role"]=="Tenant")
+        {
+            <li>
+                @Html.ActionLink("Welcome " + User.Identity.Name,"DisplayTenantIntro","Home")
+            </li>
+        }
+        else
+        {
+            <li>
+                @Html.ActionLink("Welcome " + User.Identity.Name, "StaffIndex", "Home")
+            </li>
+        }
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">      
+        <li>@Html.ActionLink("Login", "Login", "TEAM4OARSAccount", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "TEAM4OARSAccount", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    </ul>
+}

@@ -1,0 +1,5 @@
+﻿@{
+    ViewBag.Title = "TenantDetail";
+}
+
+<h2>TenantDetail</h2>

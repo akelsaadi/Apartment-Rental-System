@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TEAM4OARS.Models.View_LeaseLength>
+
+@{
+    ViewBag.Title = "ListLeases";
+}
+
+<h2>ListLeases</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lease_Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lease_End)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lease_Length__Days_)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lease_Start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lease_End)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lease_Length__Days_)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Rental_No }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Rental_No }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Rental_No })
+        </td>
+    </tr>
+}
+
+</table>

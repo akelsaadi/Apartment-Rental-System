@@ -1,0 +1,329 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+}
+
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/ui/jquery.ui.widget.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.resizable.js"></script> 
+    <script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.dialog.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.core.js"></script>
+    <script src="~/Scripts/chatRoom.js"></script>
+
+
+    <!--<div hidden="hidden">
+    <script type="text/javascript">
+
+        $(function () {
+            //setScreen(0);
+
+            var chat = $.connection.chatHub;
+
+            registerClientMethods(chat);
+
+            $.connection.hub.start().done(function () {
+                registerEvents(chat);
+            });
+        });
+
+        function registerClientMethods(chat) {
+            chat.client.onConnected = function (id, userName, allUsers, messages) {
+
+                //Hide div based on role
+
+                $("#hdId").val(id);
+                $("#hdUsername").val(userName);
+                $("#spanUser").html(userName);
+
+                //Add All Users
+                $("#divUsers").empty();
+                for (i = 0; i < allUsers.length; i++) {
+                    AddUser(chat, allUsers[i].ConnectionId, allUsers[i].UserName);
+                }
+
+                //Add Existing Messages
+                for (i = 0; i < messages.length; i++) {
+                    AddMessages(messages[i].UserName, messages[i].Message);
+                }
+
+            }
+
+            chat.client.onNewUserConnected = function (id, name) {
+                AddUser(chat, id, name);
+            }
+
+            chat.client.onUserDisconnected = function (id, userName) {
+
+                $('#' + id).remove();
+
+                var ctrId = 'private_' + id;
+
+                $('#' + ctrId).remove();
+
+                var disc = $('<div class="diconnect">' + userName + 'logged off</div>');
+
+                $(disc).hide();
+                $('#divusers').prepend(disc);
+                $(disc).fadeIn(400).delay(2500).fadeOut(400);
+            }
+
+            chat.client.sendPrivate = function (windowId, fromUserName, message) {
+
+                var ctrId = 'private_' + windowId;
+
+                if ($('#' + ctrId).length == 0) {
+
+                    createChatWindow(chat, windowId, ctrId, fromUserName);
+                }
+
+                $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName"><b>' + fromUserName + '</b></spane>: ' + message + '</div>');
+
+                var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
+                $('#' + ctrId).find('#divMessage').scrollTop(height);
+
+            }
+
+            chat.client.messageReceived = function (userName, message) {
+
+                AddMessages(userName, message);
+
+            }
+        }
+
+        function createChatWindow(chat, userId, ctrId, userName) {
+
+            console.log("Create Chat: " + userName);
+            var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
+                       '<div class="header">' +
+                          '<div  style="float:right;">' +
+                              '<img id="imgDelete"  style="cursor:pointer;" src="/images/delete.png"/>' +
+                           '</div>' +
+
+                           '<span class="selText" rel="0">' + userName + '</span>' +
+                       '</div>' +
+                       '<div id="divMessage" class="messageArea">' +
+
+                       '</div>' +
+                       '<div class="buttonBar">' +
+                          '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
+                          '<input id="btnSendMessage" class="submitButton button" type="button" value="Send"   />' +
+                       '</div>' +
+                    '</div>';
+
+            var $div = $(div);
+
+            // DELETE BUTTON IMAGE
+            $div.find('#imgDelete').click(function () {
+                $('#' + ctrId).remove();
+            });
+
+            // Send Button event
+            $div.find("#btnSendMessage").click(function () {
+
+                $textBox = $div.find("#txtPrivateMessage");
+                var msg = $textBox.val();
+                if (msg.length > 0) {
+
+                    chat.server.sendPrivate(userId, msg);
+                    $textBox.val('');
+                }
+            });
+
+            // Text Box event
+            $div.find("#txtPrivateMessage").keypress(function (e) {
+                if (e.which == 13) {
+                    $div.find("#btnSendMessage").click();
+                }
+            });
+
+            AddDivToContainer($div);
+
+        }
+
+        function AddDivToContainer($div) {
+            $('#divContainer').prepend($div);
+
+            $div.draggable({
+
+                handle: ".header",
+                stop: function () {
+
+                }
+            });
+
+        }
+
+        function AddUser(chat, id, name) {
+            var userId = $("#hdId").val();
+            var usern = $("#hdUsername").val();
+            console.log(userId);
+            console.log(usern);
+            var code = "";
+
+            if (userId == id) {
+
+                console.log("Same user id" + userId);
+                code = $('<div class="loginUser">' + name + '</div>');
+            }
+            else {
+                console.log("User does not match");
+                code = $('<a id="' + id + '" class="user">' + name + '<a>');
+
+                $(code).dblclick(function () {
+                    var id = $(this).attr('id');
+                    if (userId != id) {
+                        OpenChatWindow(chat, id, name);
+                    }
+                });
+            }
+            $('#divUsers').append(code);
+        }
+
+        function AddMessages(userName, message) {
+            var msgcode = '<div class="messages"><span class="userName">' + userName + '</span>: ' + message + '</div>';
+            $('#divChatWindow').append(msgcode);
+
+            var height = $('#divChatWindow')[0].scrollHeight;
+
+            $('#divChatWindow').scrollTop(height);
+        }
+
+        function OpenChatWindow(chat, id, userName) {
+
+            var ctrId = 'private_' + id;
+
+            if ($('#' + ctrId).length > 0) return;
+
+            createChatWindow(chat, id, ctrId, userName);
+
+        }
+
+        function registerEvents(chat) {
+            $("#enterChat").click(function () {
+
+                var name = $("#userName").val();
+
+                if (name.length > 0) {
+                    chat.server.connect(name);
+                }
+                else {
+                    alert("Please Enter Name");
+                }
+            })
+
+            $("#userName").keypress(function (e) {
+                if (e.which == 13) {
+                    $("#enterChat").click();
+                }
+            })
+
+            $("#chatMsg").keypress(function (e) {
+                if (e.which == 13) {
+                    $("#chatSend").click();
+                }
+            })
+
+            $("#chatSend").click(function () {
+                var msg = $("#chatMsg").val();
+
+                if (msg.length > 0) {
+
+                    var user = $("#hdUserName").val();
+                    chat.server.sendPrivate(user, msg)
+                }
+            })
+        }
+
+        function setScreen(level) {
+            switch (level) {
+                case 0:
+                    console.log('Visitor Page');
+                    $("#customerSvcChat").hide();
+                    $("#clientChat").hide();
+                    $("#visitor").show();
+                    break;
+                case 1:
+                    console.log('Tenant Page');
+                    $("#customerSvcChat").hide();
+                    $("#clientChat").show();
+                    $("#visitor").hide();
+                    break;
+                case 2:
+                    console.log('Customer Service Page');
+                    $("#customerSvcChat").show();
+                    $("#clientChat").hide();
+                    $("#visitor").hide();
+                    break;
+                default:
+                    console.log('Chat Page Restricted');
+                    $("#customerSvcChat").hide();
+                    $("#clientChat").hide();
+                    $("#visitor").hide();
+                    break;
+            }
+        }
+
+    </script>
+</div>-->
+
+
+
+}
+<div class="row">
+    <div class="col-md-4 text-center">
+    </div>
+    <div class="col-md-4 text-center">
+        <h1>@ViewData["Message"]</h1>
+    </div>
+    <div class="col-md-4 text-center">
+    </div>
+</div>
+<div id="divContainer">
+    <div id="visitor" class="login">
+        <div id="divnickName">
+            Username: <input type="text" id="userName" />
+        </div>
+        <div id="divchatBtn">
+            <input id="enterChat" type="button" value="Chat" />
+        </div>
+    </div>
+
+    <div id="clientChat" hidden="hidden">
+        <div class="title">
+            Welcome Visitor/Tenant
+        </div>
+        <div class="chatRoom content">
+            <div id="chatWindow" class="chatRoom content chatWindow">
+            </div>
+            <div class="messageBar">
+                <input class="textbox" type="text" id="chatMsg" />
+                <input type="button" id="chatSend" value="Send" class="btn-success" />
+            </div>
+        </div>
+
+    </div>
+
+    <div id="customerSvcChat" class="chatRoom">
+        <div class="title">
+            Welcome Customer Service
+        </div>
+        <div class="chatContent">
+            <div id="chatWindow" class="chatWindow">
+            </div>
+            <div id="divUsers" class="users">
+            </div>
+        </div>
+        <div class="messageBar">
+            <input class="textbox" type="text" id="chatMsg" />
+            <input type="button" id="chatSend" value="Send" class="btn-success" />
+        </div>
+    </div>
+
+    <input type="hidden" id="hdId" />
+    <input type="hidden" id="hdUsername" />
+</div>

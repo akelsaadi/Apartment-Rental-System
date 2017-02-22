@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TEAM4OARS.Models.View_LeaseLength>
+
+@{
+    ViewBag.Title = "Leases Length";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lease_End)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lease_End)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lease_Length__Days_) Days
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lease_Start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lease_End)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lease_Length__Days_)
+        </td>
+    </tr>
+}
+
+</table>

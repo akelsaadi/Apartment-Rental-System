@@ -1,0 +1,34 @@
+﻿@model IEnumerable<TEAM4OARS.Models.ViewListRentCollected>
+@{
+
+   /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * View to Display Rent Collected
+    */
+    ViewBag.Title = "Rent Collected";
+}
+
+<div class="container">
+<div class="col-md-6 col-md-offset-3">
+    <h2>@ViewBag.Title</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Month)</th>
+            <th>@Html.DisplayNameFor(model => model.Amount)</th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+</div>

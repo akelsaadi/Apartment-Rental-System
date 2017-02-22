@@ -1,0 +1,14 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * View that will display when error occurs
+    */
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+

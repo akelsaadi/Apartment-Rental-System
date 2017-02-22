@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TEAM4OARS.Models.View_VacantApt>
+@{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * Display list of Vacant Apartments
+    */
+    ViewBag.Title = "Vacant Apartments";
+}
+
+<h1>@ViewBag.Title</h1>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_Rent_Amt)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayFor(model => item.Apt_no)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_Rent_Amt)
+        </td>
+    </tr>
+}
+
+</table>

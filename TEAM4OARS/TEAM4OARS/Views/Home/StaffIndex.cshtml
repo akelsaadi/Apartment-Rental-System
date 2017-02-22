@@ -1,0 +1,36 @@
+﻿@model IEnumerable<TEAM4OARS.Models.ViewRentalRates>
+@{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * Staff View
+    */
+    ViewBag.Title = "Staff Home Page";
+}
+
+<h1>Staff Home Page</h1>
+<h2>Welcome @User.Identity.Name your Role is @Session["Role"]</h2>
+
+<div class="col-md-4">
+</div>
+<div class="col-md-8">
+    <h1>Rental Rates</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Apt_Type)</th>
+            <th>@Html.DisplayNameFor(model => model.Apt_Rent_Amt)</th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apt_Type_Desc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apt_Rent_Amt)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

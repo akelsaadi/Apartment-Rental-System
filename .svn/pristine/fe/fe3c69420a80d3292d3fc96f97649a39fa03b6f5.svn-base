@@ -1,0 +1,7 @@
+﻿
+@{
+    ViewBag.Title = "AssistantDetail";
+}
+
+<h2>AssistantDetail</h2>
+

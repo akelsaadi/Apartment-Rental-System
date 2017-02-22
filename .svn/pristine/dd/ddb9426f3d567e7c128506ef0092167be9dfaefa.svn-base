@@ -1,0 +1,171 @@
+﻿@using TEAM4OARS.Models
+@model Tuple<List<Tenant>,List<Tenant_Auto>,List<Tenant_Family>>
+
+@{
+    ViewBag.Title = "Tenant Information";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<h2>Welcome @User.Identity.Name your Role is @Session["Role"]</h2>
+
+<h2>Tenant Details</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Tenant SS
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Date of Birth
+        </th>
+        <th>
+           Marital Status
+        </th>
+        <th>
+            Work Phone
+        </th>
+        <th>
+            Home Phone
+        </th>
+        <th>
+            Employer
+        </th>
+        <th>
+            Gender
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Item1)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model=>item.Tenant_SS)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Tenant_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Tenant_DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Tenant_Marital)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Work_Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Home_Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Employer)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Tenant_Gender)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@if (Model.Item2.Count() > 0)
+{
+<h2>Tenant Autos</h2>
+<table class="table">
+    <tr>
+        <th>
+            Auto Make
+        </th>
+        <th>
+            Auto Model
+        </th>
+        <th>
+            Auto Year
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Item2)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Auto_Make)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Auto_Model)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Auto_Year)
+            </td>
+        </tr>
+    }
+
+</table>
+}
+
+@if (Model.Item3.Count()>0)
+{
+<h2>Tenant Family</h2>
+<table class="table">
+    <tr>
+        <th>
+            Family SS
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Spouse
+        </th>
+        <th>
+            Child
+        </th>
+        <th>
+            Divorced
+        </th>
+        <th>
+            Single
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Date of Birth
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Item3)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model=> item.Family_SS)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Family_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Spouse)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Child)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Divorced)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Single)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Family_Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(model=> item.Family_DOB)
+            </td>
+        </tr>
+    }
+
+</table>
+}
+

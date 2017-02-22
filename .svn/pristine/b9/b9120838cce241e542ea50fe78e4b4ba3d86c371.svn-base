@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TEAM4OARS.Models.Tenant_Auto>
+
+@{
+    ViewBag.Title = "ListTenantAutoMake";
+}
+
+<h2>ListTenantAutoMake</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.License_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Auto_Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Auto_Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Auto_Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Auto_Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenant_SS)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.License_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auto_Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auto_Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auto_Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auto_Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant_SS)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,14 @@
+﻿@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        var simple = $.connection.chatHub;
+        simple.client.introduce = function (introduction) {
+            alert(introduction);
+        }
+
+        $.connection.hub.start().done(function (){
+            simple.server.hello();
+        });
+    </script>
+}

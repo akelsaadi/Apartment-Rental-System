@@ -1,0 +1,54 @@
+UCChat(Name= name of user logged in
+	Message=message to send)
+{
+	send message to server
+	
+	display message on othe user screen
+}
+
+UCListAptVacant()
+{
+	connect to SQL Server
+	query= select * from apartment where Apt_Status='V';
+	ExecuteQuery(query)
+	
+	Get results from View
+	
+	Display Results
+
+}
+
+UCListRentCollected()
+{
+
+	if(All apartment are rented)
+	{
+		connect to SQL Server
+		query=select * from Rental_Invoice
+		ExecuteQuery(query)
+		get date from View
+		display Rent collected
+	}
+	else
+	{
+		display "not all apartments are rented"
+	}
+
+}
+
+UCLookupTestimonial(keyword)
+{
+
+	Connect ot SQL Server
+	run store procedure and send keyword as parameter
+	get results from View
+	if(noresults)
+	{
+		display no results found
+	}
+	else
+	{
+		display results
+	}
+
+}

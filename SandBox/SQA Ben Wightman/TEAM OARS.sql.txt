@@ -1,0 +1,46 @@
+TEAM4OARS
+SQA review document #1
+Ben Wightman
+
+=== Metadata ===
+
+File: "TEAM OARS.sql"
+Date: 4/8/2016
+
+=== Recommended changes ===
+
+* Rename file to "TEAM4OARS.sql"
+
+* Staff:
+    Gender: Change from NCHAR(10) to INT
+    Salary: Change from REAL to DECIMAL(10, 2)
+
+* Tenant:
+    Tenant_SS:  Change from INT to CHAR(9)
+    Marital:    Change from CHAR(30) to INT
+    Work_Phone, Home_Phone: 
+      Change from INT to CHAR(20)
+
+* Apartment:
+    Apt_Type:        Change from CHAR(30) to INT
+    Apt_Status:      Change from CHAR(30) to INT
+    Apt_Utility:     Change from CHAR(30) to INT
+    Apt_Deposit_Amt: Change from REAL to DECIMAL(10, 2)
+    Apt_Rent_Amt:    Change from REAL to DECIMAL(10, 2)
+    
+* Tenant_Family: 
+    Family_Gender: Change from CHAR(30) to INT
+    Spouse, Child, Divorced, Single: 
+        Change from CHAR(30) to INT
+    
+* Rental:
+    Rental_Status: Change from CHAR(30) to INT
+    Lease_Type: Change from CHAR(30) to INT
+    
+* Rental_Invoice:
+    CC_Amt: Change from REAL to DECIMAL(10,2)
+    
+* Complaint:
+    Status: Change from CHAR(30) to INT
+    
+* Remove NOT NULL constraints on primary key columns as these are redundant

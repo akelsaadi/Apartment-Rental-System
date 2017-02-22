@@ -1,0 +1,112 @@
+﻿@model TEAM4OARS.Models.CreateRentalViewModel
+@{
+    ViewBag.Title = "CreateRental";
+}
+
+<h2>CreateRental</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Create Rental</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if(TempData["msg"] != null) {
+            <div class="@TempData["msgClass"]">@TempData["msg"]</div>
+        }
+
+        <div class="form-group">
+            <div class="form-group">
+                @Html.Label("Tenant SSN", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tenant.Tenant_SS, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tenant.Tenant_SS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.CheckBoxFor(model => model.isNewTenant) Is this a new tenant? <br />
+            <a onclick="$('#newTenantInfo').toggle()">(Show/hide new tenant registration info)</a>
+
+            <div class="form-group" id="newTenantInfo">
+                @Html.Label("Tenant name", new { @class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tenant.Tenant_Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tenant.Tenant_Name, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.Label("Tenant gender", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.RadioButtonFor(model => model.tenant.Tenant_Gender, "M") Male <br />
+                    @Html.RadioButtonFor(model => model.tenant.Tenant_Gender, "F") Female
+                    @Html.ValidationMessageFor(model => model.tenant.Tenant_Gender, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.Label("Tenant date of birth", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tenant.Tenant_DOB, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tenant.Tenant_DOB, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.Label("Tenant work phone", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tenant.Work_Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tenant.Work_Phone, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.Label("Username", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tenant.Tenant_Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tenant.Tenant_Username, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.Label("tenant.Tenant_Password", "Password", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.tenant.Tenant_Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.tenant.Tenant_Password, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.Label("confirmPasswd", "Confirm password", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.confirmPasswd, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.confirmPasswd, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <hr />
+            <!-- Lease type -->
+            <div class="form-group">
+                @Html.Label("Lease type", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @{
+                        List<string> LeaseTypeValues = new List<string>();
+                        LeaseTypeValues.Add("One");
+                        LeaseTypeValues.Add("Six");
+                        SelectList list = new SelectList(LeaseTypeValues);
+                    }
+                    @Html.DropDownListFor(model => model.Lease_Type, list, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor( model => model.Lease_Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Apartment no. -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.aptNo, "Apartment no.", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.aptNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.aptNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

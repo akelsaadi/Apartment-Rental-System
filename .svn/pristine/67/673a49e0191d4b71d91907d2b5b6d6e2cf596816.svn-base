@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TEAM4OARS.Common;
+
+namespace TEAM4OARS.Controllers
+{
+    public class HomeController : Controller
+    { 
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "TEAM4OARS Members";
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Contact Us";
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Testimonials(string keyWord)
+        {
+            ViewBag.Message = "Search a Testimonial";
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var testimonials = from t in dc.Testimonials
+                                   select t;
+                if(!String.IsNullOrEmpty(keyWord))
+                {
+                    testimonials = testimonials.Where(s => s.Testimonial_Content.Contains(keyWord));
+                }
+
+                return View(testimonials);
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult Chat()
+        {
+            ViewBag.Message = "Welcome to the Chat Room";
+            return View();
+        }
+
+        [TEAM4OARSAuthorize (Roles ="Tenant")]
+        public ActionResult TenantDetails()
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var tenant = dc.Tenants.Where(a => a.Tenant_Username.Equals(User.Identity.Name)).FirstOrDefault();
+                //var viewTenant = from s in dc.View_Tenant where s.Tenant_SS==tenant.Tenant_SS select s;
+                var tenantInfo = dc.Tenants.SqlQuery("select t.*,ta.*,tf.* from Tenant t join Tenant_Auto ta on ta.Tenant_SS = t.Tenant_SS join Tenant_Family tf on tf.Tenant_SS = t.Tenant_SS" );
+
+                return View(tenantInfo.ToList());
+                }
+        }
+
+        [TEAM4OARSAuthorize (Roles ="Assistant")]
+        public ActionResult AssistantIndex()
+        {
+            return View();
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Manager")]
+        public ActionResult ManagerIndex()
+        {
+            return View();
+        }
+
+        [TEAM4OARSAuthorize(Roles = "Supervisor")]
+        public ActionResult SupervisorIndex()
+        {
+            return View();
+
+        }
+
+        public ActionResult PayRent()
+        {
+            return View();
+        }
+
+        public ActionResult EnterTestimonial()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EnterTestimonial(Models.Testimonial t)
+        {
+            using (Models.TEAM4OARSEntities dc = new Models.TEAM4OARSEntities())
+            {
+                var tenant = dc.Tenants.Where(s => s.Tenant_Username.Equals(User.Identity.Name)).FirstOrDefault();
+                t.Tenant_SS = tenant.Tenant_SS;
+                t.Testimonial_Date = DateTime.Now;
+
+                if (ModelState.IsValid)
+                {
+                    dc.Testimonials.Add(t);
+                    dc.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View(t);
+                }
+            }
+        }
+    }
+}

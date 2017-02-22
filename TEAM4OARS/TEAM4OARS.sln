@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEAM4OARS", "TEAM4OARS\TEAM4OARS.csproj", "{1B70D610-88F1-457E-BB3C-3E7F6C38A79E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{3F0CE5BE-806C-4289-983D-713299FA0FAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{E5CEB9CA-30F0-4EF0-A026-9EFF040A595F}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{FD0B2F2F-D655-4C05-AF84-04161ED75E20}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\TEAM4OARS.json = PublishScripts\Templates\TEAM4OARS.json
+		PublishScripts\Templates\TEAM4OARS.param.dev.json = PublishScripts\Templates\TEAM4OARS.param.dev.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B70D610-88F1-457E-BB3C-3E7F6C38A79E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B70D610-88F1-457E-BB3C-3E7F6C38A79E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B70D610-88F1-457E-BB3C-3E7F6C38A79E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B70D610-88F1-457E-BB3C-3E7F6C38A79E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E5CEB9CA-30F0-4EF0-A026-9EFF040A595F} = {3F0CE5BE-806C-4289-983D-713299FA0FAF}
+		{FD0B2F2F-D655-4C05-AF84-04161ED75E20} = {3F0CE5BE-806C-4289-983D-713299FA0FAF}
+	EndGlobalSection
+EndGlobal

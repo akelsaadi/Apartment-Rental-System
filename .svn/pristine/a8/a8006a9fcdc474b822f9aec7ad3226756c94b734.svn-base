@@ -1,0 +1,11 @@
+UCListTenants()
+{
+	tenantList = new Table(Tenants.size(), 3);
+	
+	for (i = 0; i < Tenants.size(), i++)
+	{
+		tenantList.add(i, 0, Tenants[i].Name);
+		tenantList.add(i, 1, Tenants[i].SSN);
+		tenantList.add(i, 2, Tenants[i].Apartment);
+	}
+}

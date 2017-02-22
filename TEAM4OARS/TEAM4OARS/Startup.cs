@@ -1,0 +1,14 @@
+﻿using Microsoft.Owin;
+using Owin;
+
+[assembly: OwinStartupAttribute(typeof(TEAM4OARS.Startup))]
+namespace TEAM4OARS
+{
+    public partial class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        { 
+            app.MapSignalR();
+        }
+    }
+}

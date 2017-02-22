@@ -1,0 +1,350 @@
+﻿/*Author: Bertol Salgado 1361242
+* COSC 4351
+* Spring 2016
+* Javascript file that will handle chat room methods on client side
+*/
+
+$(function () {
+    //setScreen(0);
+    console.log("start HUB");
+    var chat = $.connection.chatHub;
+    
+
+    registerClientMethods(chat);
+
+    $.connection.hub.start().done(function () {
+        registerEvents(chat);
+    });
+});
+
+function registerClientMethods(chat) {
+    chat.client.onConnected = function (id, userName, allUsers, messages) {
+
+        //Hide div based on role
+        var role = $('#userRole').val();
+        setScreen(role);
+        $("#hdId").val(id);
+        $("#hdUsername").val(userName);
+        $("#spanUser").html(userName);
+
+        //Add All Users
+        $("#divUsers").empty();
+        for (i = 0; i < allUsers.length; i++) {
+            AddUser(chat, allUsers[i].ConnectionId, allUsers[i].UserName);
+        }
+
+        //Add Existing Messages
+        for (i = 0; i < messages.length; i++) {
+            AddMessages(messages[i].UserName, messages[i].Message);
+        }
+
+        $('#liveChat').find('#livechatWindow').append('<div class="message"><span class="userName"><b>Welcome '+ userName + ' how can we help you Today?</b></div>');
+        
+    }
+
+    chat.client.onNewUserConnected = function (id, name) {
+        AddUser(chat, id, name);
+    }
+
+    chat.client.onUserDisconnected = function (id, userName) {
+
+        $('#' + id).remove();
+
+        var ctrId = 'private_' + id;
+
+        $('#' + ctrId).remove();
+
+        var disc = $('<div class="diconnect">' + userName + 'logged off</div>');
+
+        $(disc).hide();
+        $('#divusers').prepend(disc);
+        $(disc).fadeIn(400).delay(2500).fadeOut(400);
+    }
+
+    chat.client.sendPrivate = function (windowId, fromUserName, message) {
+
+        var ctrId = 'private_' + windowId;
+
+        if ($('#' + ctrId).length == 0) {
+
+            createChatWindow(chat, windowId, ctrId, fromUserName);
+        }
+
+        $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName"><b>' + fromUserName + '</b></spane>: ' + message + '</div>');
+
+        var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
+        $('#' + ctrId).find('#divMessage').scrollTop(height);
+
+    }
+
+    chat.client.sendMsgCustSvc = function (windowId, fromUserName, message) {
+
+        var ctrId = 'private_' + windowId;
+
+        if ($('#' + ctrId).length == 0) {
+
+            createChatWindow(chat, windowId, ctrId, fromUserName);
+        }
+
+        $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName"><b>' + fromUserName + '</b></spane>: ' + message + '</div>');
+
+        var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
+        $('#' + ctrId).find('#divMessage').scrollTop(height);
+
+    }
+
+    chat.client.sendMsgCustomer = function (fromUserName, message) {
+
+        $('#liveChat').find('#livechatWindow').append('<div class="message"><span><b>' + fromUserName + '</b></span>: ' + message + '</div>');
+
+        var height = $('#liveChat').find('#livechatWindow')[0].scrollHeight;
+        $('#liveChat').find('#livechatWindow').scrollTop(height);
+
+    }
+
+    chat.client.messageReceived = function (userName, message) {
+
+        AddMessages(userName, message);
+
+    }
+}
+
+function createChatWindow(chat, userId, ctrId, userName) {
+
+    console.log("Create Chat: " + userName);
+    var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
+               '<div class="header">' +
+                  '<div  style="float:right;">' +
+                      '<img id="imgDelete"  style="cursor:pointer;" src="/images/delete.png"/>' +
+                   '</div>' +
+
+                   '<span class="selText" rel="0">' + userName + '</span>' +
+               '</div>' +
+               '<div id="divMessage" class="messageArea">' +
+
+               '</div>' +
+               '<div class="buttonBar">' +
+                  '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
+                  '<input id="btnSendMessage" class="submitButton button" type="button" value="Send"   />' +
+               '</div>' +
+            '</div>';
+
+    var $div = $(div);
+
+    // DELETE BUTTON IMAGE
+    $div.find('#imgDelete').click(function () {
+        $('#' + ctrId).remove();
+    });
+
+    // Send Button event
+    $div.find("#btnSendMessage").click(function () {
+
+        $textBox = $div.find("#txtPrivateMessage");
+        var msg = $textBox.val();
+        if (msg.length > 0) {
+
+            chat.server.sendPrivate(userId, msg);
+            $textBox.val('');
+        }
+    });
+
+    // Text Box event
+    $div.find("#txtPrivateMessage").keypress(function (e) {
+        if (e.which == 13) {
+            $div.find("#btnSendMessage").click();
+        }
+    });
+
+    AddDivToContainer($div);
+
+}
+
+function AddDivToContainer($div) {
+    $('#divContainer').prepend($div);
+
+    $div.draggable({
+
+        handle: ".header",
+        stop: function () {
+
+        }
+    });
+
+}
+
+function AddUser(chat, id, name) {
+    var userId = $("#hdId").val();
+    var usern = $("#hdUsername").val();
+    console.log(userId);
+    console.log(usern);
+    var code = "";
+
+    if (userId == id) {
+
+        console.log("Same user id" + userId);
+        code = $('<div class="loginUser">' + name + '</div>');
+    }
+    else {
+        console.log("User does not match");
+        code = $('<a id="' + id + '" class="user">' + name + '<a>');
+
+        $(code).dblclick(function () {
+            var id = $(this).attr('id');
+            if (userId != id) {
+                OpenChatWindow(chat, id, name);
+            }
+        });
+    }
+    $('#divUsers').append(code);
+}
+
+function AddMessages(userName, message) {
+    var msgcode = '<div class="messages"><span class="userName">' + userName + '</span>: ' + message + '</div>';
+    $('#divChatWindow').append(msgcode);
+
+    var height = $('#divChatWindow')[0].scrollHeight;
+
+    $('#divChatWindow').scrollTop(height);
+}
+
+function OpenChatWindow(chat, id, userName) {
+
+    var ctrId = 'private_' + id;
+
+    if ($('#' + ctrId).length > 0) return;
+
+    createChatWindow(chat, id, ctrId, userName);
+
+}
+
+function onChatLoad(role)
+{
+    switch(role)
+    {
+        //only show login propmt
+        case "Visitor":
+            console.log(role);
+            $("#userRole").val(role);
+            $("#customerSvcChat").hide();
+            $("#user").hide();
+            $("#visitor").show();
+            $('#liveChat').hide();
+            break;
+        case "Tenant":
+            console.log(role);
+            $("#userRole").val(role);
+            $('#hdUsername').val(name);
+            $("#customerSvcChat").hide();
+            $("#visitor").hide();
+            $("#user").show();
+            $('#liveChat').hide();
+            break;
+        case "Assistant":
+            console.log(role);
+            $("#userRole").val(role);
+            $("#clientChat").hide();
+            $("#visitor").hide();
+            $("#customerSvcChat").hide();
+            $("#user").show();
+            $('#liveChat').hide();
+            break;
+        default:
+            console.log(role);
+            $("#userRole").val(role);
+            $("#clientChat").hide();
+            $("#visitor").hide();
+            $("#customerSvcChat").hide();
+            $("#user").show();
+            $('#liveChat').hide();
+            break;
+    }
+}
+
+function registerEvents(chat) {
+    $("#enterChat").click(function () {
+
+        var name = $("#userName").val();
+        var role = $('#userRole').val();
+
+        if (name.length > 0) {
+            chat.server.connect(name,role);
+        }
+        else {
+            alert("Please Enter Name");
+        }
+    })
+
+    $("#startChat").click(function () {
+
+        var name = $("#validUserName").val();
+        var role = $('#userRole').val();
+        console.log(name);
+
+        if (name.length > 0) {
+            chat.server.connect(name,role);
+        }
+        else {
+            alert("Please Enter Name");
+        }
+    })
+
+    $("#userName").keypress(function (e) {
+        if (e.which == 13) {
+            $("#enterChat").click();
+        }
+    })
+
+    $("#chatMsg").keypress(function (e) {
+        if (e.which == 13) {
+            $("#chatSend").click();
+        }
+    })
+
+    $("#chatSend").click(function () {
+        var msg = $("#chatMsg").val();
+
+        if (msg.length > 0) {
+
+            var user = $("#hdUserName").val();
+            chat.server.sendPrivate(user, msg)
+        }
+    })
+    $('#liveChatSend').click(function () {
+        var msg = $('#liveChatMsg').val();
+        if (msg.length > 0) {
+            var user = $("#hdUsername").val();
+            chat.server.sendCustomerSvc(user, msg);
+            $('#liveChatMsg').val('');
+        }
+    })
+
+    $('#liveChatMsg').keypress(function (e) {
+        if (e.which == 13) {
+            $('#liveChatSend').click();
+        }
+    })
+}
+
+function setScreen(level) {
+    switch (level) {
+        case "Visitor":
+            console.log('Visitor Page');
+            $("#customerSvcChat").hide();
+            $("#visitor").hide();
+            $('#liveChat').show();
+            break;
+        case "Tenant":
+            console.log('Tenant Page');
+            $("#customerSvcChat").hide();
+            $("#user").hide();
+            $('#liveChat').show();
+            break;
+        default:
+            console.log('Customer Service Page');
+            $("#customerSvcChat").show();
+            $("#visitor").hide();
+            $("#user").hide(); 
+            $('#liveChat').hide();
+            break;
+    }
+}

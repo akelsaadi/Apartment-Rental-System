@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TEAM4OARS.Models.View_Pending_Complaints>
+
+@{
+    ViewBag.Title = "ListPendingComplaints";
+}
+
+<h2>ListPendingComplaints</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Complaint_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description_Complaint)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Complaint_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description_Complaint)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

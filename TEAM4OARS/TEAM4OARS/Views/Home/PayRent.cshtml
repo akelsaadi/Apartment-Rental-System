@@ -1,0 +1,147 @@
+﻿@model TEAM4OARS.Models.ViewPayRent
+
+@{
+    ViewBag.Title = "Pay Rent";
+}
+@if (ViewBag.Type == "Receipt")
+{
+
+}
+else
+{
+<div class="container">
+    <h1>@ViewBag.Title</h1>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <h2>Credit Card Details</h2>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Invoice_Date, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Invoice_Date, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Invoice_Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Rental_No, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Rental_No, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Invoice_Due, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Invoice_Due, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Invoice_Due, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Invoice_Due, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CC_No, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CC_No, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CC_No, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CC_Type, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.RadioButtonFor(model => model.CC_Type, "visa", new { id = "visa", Checked = "checked" })
+                        @Html.Label("visa", "Visa")
+                        <br />
+
+                        @Html.RadioButtonFor(model => model.CC_Type, "mastercard", new { id = "master" })
+                        @Html.Label("mastercard", "MasterCard")
+                        <br />
+
+                        @Html.RadioButtonFor(model => model.CC_Type, "discover", new { id = "discover" })
+                        @Html.Label("discover", "Discover")
+                        @Html.ValidationMessageFor(model => model.CC_Type, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CC_Exp_Date, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CC_Exp_Date, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CC_Exp_Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CC_Amt, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CC_Amt, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CC_Amt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tenant_Name, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Tenant_Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Tenant_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tenant_SS, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Tenant_SS, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Tenant_SS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Apt_no, htmlAttributes: new { @class = "col-md-3" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Apt_no, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Apt_no, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+                <h2>Rental Rates</h2>
+                <hr />
+                <table class="table table-striped">
+                    <tr>
+                        <th>Apt Type</th>
+                        <th>Rent</th>
+                    </tr>
+
+                    @foreach (var item in Model.rates)
+                    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apt_Type_Desc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apt_Rent_Amt)
+                </td>
+            </tr>
+                    }
+                </table>
+            </div>
+    }
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

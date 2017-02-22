@@ -1,0 +1,21 @@
+﻿
+@{
+    /*Author: Bertol Salgado 1361242
+    * COSC 4351
+    * Spring 2016
+    * View to display testimonial Results
+    */
+    ViewBag.Title = "LookupTestimonial";
+}
+
+<h2>Lookup Testimonial</h2>
+
+<p>
+    @using (Html.BeginForm("TestimonialsResults", "Home", FormMethod.Get))
+    {
+    <p>
+        Keyword: @Html.TextBox("keyword")<br />
+        <input type="submit" name="name" value="Search" />
+    </p>
+    }
+</p>
